@@ -2,8 +2,6 @@
 
 import { registerUser } from './utils'
 
-const { random } = Cypress._
-
 describe('different users', () => {
   it('can log in instantly', () => {
     cy.session('first user', () => registerUser('first'))
