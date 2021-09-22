@@ -3,8 +3,8 @@
 const { random } = Cypress._
 
 // yields the username and the password
-export const registerUser = () => {
-  const username = `user ${random(1e5)}`
+export const registerUser = (name) => {
+  const username = name || `user ${random(1e5)}`
   const password = `pass-${random(1e10)}`
   cy.visit('/').get('#create-account').click()
   cy.get('.register-form')

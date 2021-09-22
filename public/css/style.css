@@ -1,20 +1,29 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
 body {
-  background: #C5DDEB;
-  font-family: "Roboto", sans-serif;
+  background: #c5ddeb;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;   
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
   margin: 2% auto;
   width: 760px;
   background: #444753;
+}
+
+.user-info {
+  display: inline-block;
+  color: white;
+  padding: 10px 5px;
+  font-weight: bold;
 }
 
 .users-list {
@@ -29,7 +38,7 @@ body {
   border: none;
   padding: 14px;
   color: white;
-  background: #6A6C75;
+  background: #6a6c75;
   width: 90%;
   font-size: 14px;
 }
@@ -55,40 +64,48 @@ body {
   padding-left: 8px;
 }
 .users-list .status {
-  color: #92959E;
+  color: #92959e;
 }
-.chat, .room {
+.chat,
+.room {
   width: 490px;
   float: left;
-  background: #F2F5F8;
+  background: #f2f5f8;
   color: #434651;
 }
-.chat .chat-header, .room .room-header {
+.chat .chat-header,
+.room .room-header {
   padding: 20px;
   border-bottom: 2px solid white;
 }
-.chat .chat-header img, .room .room-header img {
+.chat .chat-header img,
+.room .room-header img {
   float: left;
 }
-.chat .chat-header .chat-about, .room .room-header .room-about {
+.chat .chat-header .chat-about,
+.room .room-header .room-about {
   float: left;
   padding-left: 10px;
   margin-top: 6px;
 }
-.chat .chat-header .chat-room, .room .room-header .room-title {
+.chat .chat-header .chat-room,
+.room .room-header .room-title {
   font-weight: bold;
   font-size: 16px;
 }
-.chat .chat-header .chat-num-users, .room .room-header .room-num-rooms {
-  color: #92959E;
+.chat .chat-header .chat-num-users,
+.room .room-header .room-num-rooms {
+  color: #92959e;
 }
-.fa-users, .fa-th-list {
+.fa-users,
+.fa-th-list {
   float: right;
-  color: #D8DADF;
+  color: #d8dadf;
   font-size: 20px;
   margin-top: 12px;
 }
-.chat .chat-history, .room .room-list {
+.chat .chat-history,
+.room .room-list {
   padding: 10px 30px 20px;
   border-bottom: 2px solid white;
   overflow-y: scroll;
@@ -115,44 +132,48 @@ body {
   bottom: 100%;
   left: 7%;
   border: solid transparent;
-  content: " ";
+  content: ' ';
   height: 0;
   width: 0;
   position: absolute;
   pointer-events: none;
-  border-bottom-color: #86BB71;
+  border-bottom-color: #86bb71;
   border-width: 10px;
   margin-left: -10px;
 }
 .chat .chat-history .my-message {
-  background: #86BB71;
+  background: #86bb71;
 }
-.chat .chat-message, .room .room-create {
+.chat .chat-message,
+.room .room-create {
   padding: 20px;
 }
-.chat .chat-message textarea, .room .room-create input {
+.chat .chat-message textarea,
+.room .room-create input {
   width: 100%;
   border: none;
   padding: 10px 20px;
-  font: 14px/22px "Roboto", Arial, sans-serif;
+  font: 14px/22px 'Roboto', Arial, sans-serif;
   margin-bottom: 10px;
   resize: none;
 }
-.online, .offline, .me {
+.online,
+.offline,
+.me {
   margin-right: 3px;
   font-size: 10px;
 }
 
 .online {
-  color: #86BB71;
+  color: #86bb71;
 }
 
 .offline {
-  color: #E38968;
+  color: #e38968;
 }
 
 .me {
-  color: #94C2ED;
+  color: #94c2ed;
 }
 
 .align-left {
@@ -171,11 +192,10 @@ body {
   visibility: hidden;
   display: block;
   font-size: 0;
-  content: " ";
+  content: ' ';
   clear: both;
   height: 0;
 }
-
 
 /*  Login Page */
 .login-page {
@@ -186,7 +206,7 @@ body {
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #ffffff;
   max-width: 400px;
   margin: 0 auto 100px;
   padding: 45px;
@@ -194,7 +214,7 @@ body {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .form input {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   outline: 0;
   background: #f2f2f2;
   width: 100%;
@@ -205,29 +225,32 @@ body {
   font-size: 14px;
 }
 .form button {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #86BB71;
+  background: #86bb71;
   width: 100%;
   border: 0;
   padding: 15px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form button:hover,.form button:active,.form button:focus {
+.form button:hover,
+.form button:active,
+.form button:focus {
   background: #89c771;
 }
-.form .message, .room-create .message {
+.form .message,
+.room-create .message {
   margin: 15px 0 0;
   color: #b3b3b3;
   font-size: 12px;
 }
 .form .message a {
-  color: #86BB71;
+  color: #86bb71;
   text-decoration: none;
 }
 .form .register-form {
@@ -259,7 +282,7 @@ ul {
   text-align: center;
 }
 .room .room-list .room-item {
-  background: #86BB71;
+  background: #86bb71;
 }
 .room .room-list a {
   text-decoration: none;
@@ -274,45 +297,53 @@ ul {
   width: 80%;
 }
 .form {
-  background-color: #F2F5F8;
+  background-color: #f2f5f8;
 }
 .form input {
-    background-color: white;
+  background-color: white;
 }
 .form-line {
-  position: absolute; 
+  position: absolute;
   left: 0px;
-  width: 360px; 
-  margin-top: 2px; 
+  width: 360px;
+  margin-top: 2px;
   border-bottom: 2px solid white;
 }
 .social-buttons div span {
   font-weight: bold;
 }
-.chat-message button, .room-create button, .controls a {
-  font-family: "Roboto", sans-serif;
+.chat-message button,
+.room-create button,
+.controls a {
+  font-family: 'Roboto', sans-serif;
   float: right;
   text-transform: uppercase;
   outline: 0;
-  background: #86BB71;
+  background: #86bb71;
   border: 0;
   padding: 15px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
 }
-button:hover, button:active, button:focus {
+button:hover,
+button:active,
+button:focus {
   background: #89c771;
 }
-a.rooms-btn:hover, a.rooms-btn:active, a.rooms-btn:focus {
+a.rooms-btn:hover,
+a.rooms-btn:active,
+a.rooms-btn:focus {
   background: #89c771;
 }
-a.logout-btn{
+a.logout-btn {
   background-color: rgb(226, 98, 92);
 }
-a.logout-btn:hover, a.logout-btn:active, a.logout-btn:focus {
+a.logout-btn:hover,
+a.logout-btn:active,
+a.logout-btn:focus {
   background-color: rgb(245, 106, 99);
 }
 .controls {
@@ -326,7 +357,8 @@ a.logout-btn:hover, a.logout-btn:active, a.logout-btn:focus {
   width: 50%;
   margin: 0;
 }
-.users-list li img, .chat-header img {
+.users-list li img,
+.chat-header img {
   width: 60px;
   height: 60px;
   border: 3px solid #676c75;
@@ -341,12 +373,13 @@ a.logout-btn:hover, a.logout-btn:active, a.logout-btn:focus {
   color: red;
 }
 .message.success {
-  color: #86BB71;
+  color: #86bb71;
 }
 .container {
   overflow: hidden;
 }
-.chat, .users-list{
+.chat,
+.users-list {
   padding-bottom: 500em;
   margin-bottom: -500em;
 }
