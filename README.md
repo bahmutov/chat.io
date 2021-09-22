@@ -1,4 +1,4 @@
-# chat.io ![cypress version](https://img.shields.io/badge/cypress-8.4.1-brightgreen)
+# chat.io [![ci status][ci image]][ci url] ![cypress version](https://img.shields.io/badge/cypress-8.4.1-brightgreen)
 > Cypress.io testing for a chat application that requires auth
 
 ## Installation
@@ -59,3 +59,6 @@ $ as-a chat.io npm run dev
 ## History
 
 All props for this Chat app goes to the original repo [OmarElGabry/chat.io](https://github.com/OmarElGabry/chat.io). I have only cloned to show it being tested.
+
+[ci image]: https://github.com/bahmutov/chat.io/workflows/ci/badge.svg?branch=main
+[ci url]: https://github.com/bahmutov/chat.io/actions
