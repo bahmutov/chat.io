@@ -47,6 +47,15 @@ $ MONGODB=... npx cypress open
 
 Read [Testing Mongo with Cypress](https://glebbahmutov.com/blog/testing-mongo-with-cypress/)
 
+## Start the app and run the tests
+
+Using [start-server-and-test](https://github.com/bahmutov/start-server-and-test) utility you can start the application and open Cypress (assuming the services have been started)
+
+```shell
+# assuming injecting ENV variables using "as-a"
+$ as-a chat.io npm run dev
+```
+
 ## History
 
 All props for this Chat app goes to the original repo [OmarElGabry/chat.io](https://github.com/OmarElGabry/chat.io). I have only cloned to show it being tested.
