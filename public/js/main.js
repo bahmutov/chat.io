@@ -140,7 +140,7 @@ var app = {
       message.username = this.encodeHTML(message.username)
       message.content = this.encodeHTML(message.content)
 
-      var html = `<li>
+      var html = `<li data-cy="message">
                     <div class="message-data">
                       <span class="message-data-name">${message.username}</span>
                       <span class="message-data-time">${message.date}</span>

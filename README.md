@@ -2,6 +2,11 @@
 [![ci status][ci image]][ci url] [![chat.io](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/f1j79r/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/f1j79r/runs)
 > Cypress.io testing for a chat application that requires auth
 
+## Videos
+
+- TODO: connect to MongoDB and use tasks to clear rooms and users. Bonus: show how to use `cy.now` to call a task whenever we want from the DevTools
+- TODO: how to wait for jQuery animation `slideDown` to finish to make sure the element is fully visible
+
 ## Installation
 
 ```shell
