@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "cy:open": "cypress open",
+    "dev": "start-test 3000 cy:open"
   },
   "repository": {
     "url": "git+https://github.com/OmarElGabry/chat.io.git",
@@ -34,5 +36,10 @@
     "socket.io": "^2.0.3",
     "socket.io-redis": "^5.1.0",
     "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "cypress": "^8.4.1",
+    "prettier": "^2.4.1",
+    "start-server-and-test": "^1.14.0"
   }
 }
