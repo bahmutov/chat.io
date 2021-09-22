@@ -11,6 +11,16 @@ You will need a MongoDB somewhere and a Redis instance. I assume the MongoDB is 
 
 ## Run the app
 
+### Using docker-compose
+
+```shell
+$ docker-compose up
+```
+
+Or you can run Redis and MongoDB separately
+
+### Using separate services
+
 Start Redis
 
 ```shell
