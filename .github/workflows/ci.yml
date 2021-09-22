@@ -7,9 +7,15 @@ jobs:
       - name: Check out code 🛎
         uses: actions/checkout@v2
 
+      - name: Run docker-compose
+        run: docker-compose up -d
+
       # https://github.com/cypress-io/github-action
       - name: Cypress tests 🧪
         uses: cypress-io/github-action@v2
         with:
           start: npm start
           wait-on: 'http://localhost:3000'
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
