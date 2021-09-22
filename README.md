@@ -1,5 +1,5 @@
 # chat.io
-> Testing a chat application using Cypress.io
+> Cypress.io testing for a chat application that requires auth
 
 ## History
 

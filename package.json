@@ -1,7 +1,8 @@
 {
   "name": "chat.io",
   "version": "1.0.0",
-  "description": "A Real Time Chat Application built using Node.js, Express, Mongoose, Socket.io, Passport, & Redis.",
+  "description": "Cypress.io testing for a chat application that requires auth",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
