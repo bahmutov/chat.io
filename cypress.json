@@ -1,6 +1,5 @@
 {
   "fixturesFolder": false,
-  "supportFile": false,
   "baseUrl": "http://localhost:3000",
   "experimentalSessionSupport": true,
   "ignoreTestFiles": "utils.js",
