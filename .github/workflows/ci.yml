@@ -18,4 +18,9 @@ jobs:
           wait-on: 'http://localhost:3000'
           record: true
         env:
+          # for recording test results and videos to Cypress Dashboard
           CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
+          # for connecting to the Mongo and Redis services
+          # see docker-compose.yml file
+          SESSION_SECRET: SoMeSeCrEtStrInG
+          MONGODB: mongodb://root:rootPass1234@localhost:27017/
