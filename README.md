@@ -1,4 +1,4 @@
-# chat.io
+# chat.io ![cypress version](https://img.shields.io/badge/cypress-8.4.1-brightgreen)
 > Cypress.io testing for a chat application that requires auth
 
 ## Installation
