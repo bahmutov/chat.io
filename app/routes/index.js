@@ -34,8 +34,8 @@ router.get('/', function (req, res, next) {
 // explicit route to print the login info
 router.post('/login', function (req, res, next) {
   // debugging the login problem
-  console.log('/login')
-  console.log(req.body)
+  console.log('/login %s', req.body.username)
+  // console.log(req.body)
 
   passport.authenticate('local', function (err, user, info) {
     if (err) {
@@ -66,9 +66,9 @@ router.post('/register', function (req, res, next) {
     username: req.body.username,
     password: req.body.password,
   }
+  console.log('/register %s', credentials.username)
   // debugging a user registration problem
-  console.log('/register')
-  console.log(credentials)
+  // console.log(credentials)
 
   if (credentials.username === '' || credentials.password === '') {
     req.flash('error', 'Missing credentials')

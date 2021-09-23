@@ -68,8 +68,6 @@ describe('group chat', () => {
     messageVisible('First!', 'A')
     postMessage('Second!!')
 
-    cy.wait(1000)
-    cy.task('getUsers')
     visitAsUser('userC')
     messageVisible('First!', 'A')
     messageVisible('Second!!', 'B')
