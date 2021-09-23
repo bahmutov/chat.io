@@ -3,5 +3,8 @@
   "baseUrl": "http://localhost:3000",
   "experimentalSessionSupport": true,
   "ignoreTestFiles": "utils.js",
-  "projectId": "f1j79r"
+  "projectId": "f1j79r",
+  "cypress-watch-and-reload": {
+    "watch": "public/**/*"
+  }
 }

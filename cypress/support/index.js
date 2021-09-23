@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
 
+// https://github.com/bahmutov/cypress-watch-and-reload
+require('cypress-watch-and-reload/support')
+
 // add 1 second pause after each test
 // to make sure the CI video has a chance to finish
 afterEach(() => {

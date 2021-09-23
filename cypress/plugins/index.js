@@ -22,6 +22,9 @@ async function clearUsers() {
 }
 
 module.exports = (on, config) => {
+  // https://github.com/bahmutov/cypress-watch-and-reload
+  require('cypress-watch-and-reload/plugins')(config)
+
   // https://on.cypress.io/before-spec-api
   on('before:spec', async (spec) => {
     console.log('before:spec', spec.name)
