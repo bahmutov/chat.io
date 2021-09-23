@@ -46,6 +46,12 @@ module.exports = (on, config) => {
       return users
     },
 
+    async makeRoom(title) {
+      const newRoom = await database.models.room.create({ title })
+      console.log('newRoom', newRoom)
+      return newRoom._id
+    },
+
     clearUsers,
     clearRooms,
   })

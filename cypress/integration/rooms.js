@@ -34,4 +34,13 @@ describe('rooms', () => {
     cy.contains('.controls a', 'Rooms').click()
     cy.location('pathname').should('equal', '/rooms')
   })
+
+  it('creates a room using task', () => {
+    cy.task('makeRoom', 'attic')
+      .should('be.a', 'string')
+      .then((roomId) => {
+        cy.visit('/chat/' + roomId)
+        cy.contains('.chat-room', 'attic').should('be.visible')
+      })
+  })
 })
