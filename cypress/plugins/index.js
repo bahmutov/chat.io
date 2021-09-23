@@ -9,7 +9,26 @@ const database = require('../../app/database')
 // we should have at least two mongoose database models
 // { user: ..., room: ... }
 
+async function clearRooms() {
+  console.log('clear rooms')
+  await database.models.room.deleteMany({})
+  return null
+}
+
+async function clearUsers() {
+  console.log('clear users')
+  await database.models.user.deleteMany({})
+  return null
+}
+
 module.exports = (on, config) => {
+  // https://on.cypress.io/before-spec-api
+  on('before:spec', async (spec) => {
+    console.log('before:spec', spec.name)
+    await clearRooms()
+    await clearUsers()
+  })
+
   on('task', {
     async getUsers() {
       console.log('getUsers')
@@ -24,16 +43,7 @@ module.exports = (on, config) => {
       return users
     },
 
-    async clearUsers() {
-      console.log('clear users')
-      await database.models.user.deleteMany({})
-      return null
-    },
-
-    async clearRooms() {
-      console.log('clear rooms')
-      await database.models.room.deleteMany({})
-      return null
-    },
+    clearUsers,
+    clearRooms,
   })
 }
