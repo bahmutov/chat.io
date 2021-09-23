@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { registerUser, registerViaApi } from './utils'
+
 describe('cy.request command', () => {
   beforeEach(() => {
     cy.task('clearUsers')
@@ -98,8 +100,31 @@ describe('cy.request command', () => {
     cy.contains('.user-info', username).should('be.visible')
   })
 
-  // do we create a room using a WebSocket message?
-  it.skip('registers, visits, logs in, and creates a room', () => {
+  it('is faster than UI', () => {
+    const start = Date.now()
+    registerUser('John').then(() => {
+      const end = Date.now()
+      cy.log(`UI took **${end - start}ms**`)
+    })
+
+    // log out
+    cy.clearCookies().then(() => {
+      const start2 = Date.now()
+      registerViaApi('Api')
+      // we need to visit the page to be kind of
+      // the same to the UI registration commands
+      // that end on the /rooms page
+      cy.visit('/rooms')
+      cy.location('pathname')
+        .should('equal', '/rooms')
+        .then(() => {
+          const end = Date.now()
+          cy.log(`API took **${end - start2}ms**`)
+        })
+    })
+  })
+
+  it('registers, visits, logs in, and creates a room', () => {
     // registers the user using cy.request API call
     // visits the page using the cy.request API call
     // logs in using the cy.request API call
@@ -130,7 +155,10 @@ describe('cy.request command', () => {
       },
     })
     // now let's create a room
-    cy.cy.visit('/rooms')
-    cy.contains('.user-info', username).should('be.visible')
+    cy.task('makeRoom', 'my own room').then((roomId) => {
+      cy.visit('/chat/' + roomId)
+      cy.contains('.about .name', username).should('be.visible')
+      cy.contains('.chat-room', 'my own room').should('be.visible')
+    })
   })
 })

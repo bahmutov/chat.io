@@ -36,3 +36,33 @@ export const registerUser = (name, pass) => {
   cy.location('pathname').should('equal', '/rooms')
   return cy.wrap({ username, password })
 }
+
+export const registerViaApi = (name, pass) => {
+  const username = name || `user ${random(1e5)}`
+  const password = pass || `pass-${random(1e10)}`
+
+  cy.request({
+    method: 'POST',
+    url: '/register',
+    form: true,
+    body: {
+      username,
+      password,
+    },
+  })
+  // when requesting the page using cy.request,
+  // the returned cookies are set too!
+  cy.request('/')
+  // let's check the session cookie was set
+  cy.getCookie('connect.sid').should('exist')
+  cy.request({
+    method: 'POST',
+    url: '/login',
+    form: true,
+    body: {
+      username,
+      password,
+    },
+  })
+  return cy.wrap({ username, password })
+}
