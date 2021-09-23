@@ -40,7 +40,13 @@ $ docker run -d -p 6379:6379 redis:alpine
 $ MONGODB=... SESSION_SECRET=... npm start
 ```
 
-Tip: use [as-a](https://github.com/bahmutov/as-a) to inject the above environment variables
+Tip: use [as-a](https://github.com/bahmutov/as-a) to inject the above environment variables into a local / user profile file `.as-a.init`, something like this:
+
+```ini
+[chat.io]
+SESSION_SECRET=MySecretVariable1234
+MONGODB=mongodb://root:rootPass1234@localhost:27017/
+```
 
 ```shell
 $ as-a chat.io npm start
@@ -55,6 +61,12 @@ $ MONGODB=... npx cypress open
 ```
 
 Read [Testing Mongo with Cypress](https://glebbahmutov.com/blog/testing-mongo-with-cypress/)
+
+Tip: you can use [as-a](https://github.com/bahmutov/as-a) to start Cypress with environment variables to connect to the MongoDB locally
+
+```shell
+$ as-a chat.io npx cypress open
+```
 
 ## Start the app and run the tests
 
