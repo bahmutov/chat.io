@@ -178,7 +178,7 @@ var init = function (app) {
   var io = require('socket.io')(server)
 
   // Force Socket.io to ONLY use "websockets"; No Long Polling.
-  io.set('transports', ['websocket'])
+  // io.set('transports', ['websocket'])
 
   // Using Redis
   let port = config.redis.port
