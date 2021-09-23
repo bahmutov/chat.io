@@ -17,6 +17,7 @@ jobs:
           start: npm start
           wait-on: 'http://localhost:3000'
           record: true
+          config: spec=cypress/integration/group-chat.js
         env:
           # for recording test results and videos to Cypress Dashboard
           CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
