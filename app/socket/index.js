@@ -91,17 +91,18 @@ var ioEvents = function (io) {
             Message.findAll(newRoom.id, function (err, messages) {
               if (err) throw err
               console.log('for room %s', newRoom.id)
-              console.log('found message')
-              console.log(messages)
 
               // we are only interested in some props
-              const msg = messages.map((m) => {
+              const msg = messages.map((m, k) => {
                 return {
+                  k,
                   content: m.content,
                   username: m.username,
                   date: m.date,
                 }
               })
+              console.log('found %d message(s)', msg.length)
+              console.table(msg)
               socket.emit('roomMessages', msg)
             })
           })
