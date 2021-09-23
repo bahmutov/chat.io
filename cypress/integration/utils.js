@@ -4,7 +4,7 @@ const { random } = Cypress._
 
 // registers a user, but does not log in
 export const registerOnly = (username, password) => {
-  cy.visit('/').get('#create-account').click()
+  cy.visit('/').get('#create-account').should('be.visible').click()
   cy.get('.register-form')
     .should('be.visible')
     .within(() => {
@@ -20,11 +20,12 @@ export const registerOnly = (username, password) => {
 }
 
 // yields the username and the password
-export const registerUser = (name) => {
+export const registerUser = (name, pass) => {
   const username = name || `user ${random(1e5)}`
-  const password = `pass-${random(1e10)}`
+  const password = pass || `pass-${random(1e10)}`
 
   registerOnly(username, password)
+  cy.wait(1000)
 
   cy.get('.login-form')
     .should('be.visible')
