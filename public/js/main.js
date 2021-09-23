@@ -167,8 +167,10 @@ var app = {
         const username = this.encodeHTML(message.username)
         const content = this.encodeHTML(message.content)
 
+        // use an empty style attribute to mimic the css style
+        // when the element has animation with .slideDown()
         const messageHtml = `
-          <li data-cy="message">
+          <li data-cy="message" style>
             <div class="message-data">
               <span class="message-data-name">${username}</span>
               <span class="message-data-time">${date}</span>
