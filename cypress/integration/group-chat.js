@@ -50,46 +50,38 @@ describe('group chat', () => {
       })
   })
 
-  it('messages going around', () => {
-    cy.session('userA', () => {
-      registerUser('A')
+  function visitAsUser(username) {
+    cy.session('user' + username, () => {
+      registerUser(username)
     })
     // directly to the room
     cy.visit(roomUrl)
+  }
+
+  it('messages going around', () => {
+    visitAsUser('A')
     // we are in the right room
     cy.contains('.chat-room', 'hang')
     postMessage('First!')
 
-    cy.session('userB', () => {
-      registerUser('B')
-    })
-    cy.visit(roomUrl)
+    visitAsUser('B')
     messageVisible('First!', 'A')
     postMessage('Second!!')
 
-    cy.session('userC', () => {
-      registerUser('C')
-    })
-    cy.visit(roomUrl)
+    visitAsUser('C')
     messageVisible('First!', 'A')
     messageVisible('Second!!', 'B')
     postMessage('Uggh, late again')
 
     // back to the first user
-    cy.session('userA', () => {
-      registerUser('A')
-    })
-    cy.visit(roomUrl)
+    visitAsUser('A')
     messageVisible('First!', 'A')
     messageVisible('Second!!', 'B')
     messageVisible('Uggh, late again', 'C')
     postMessage('No worries')
 
     // third user sees the reply
-    cy.session('userC', () => {
-      registerUser('C')
-    })
-    cy.visit(roomUrl)
+    visitAsUser('C')
     messageVisible('No worries', 'A')
   })
 })
