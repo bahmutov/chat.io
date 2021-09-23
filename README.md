@@ -67,7 +67,16 @@ $ as-a chat.io npm run dev
 
 ## History
 
-All props for this Chat app goes to the original repo [OmarElGabry/chat.io](https://github.com/OmarElGabry/chat.io). I have only cloned to show it being tested.
+All props for this Chat app goes to the original repo [OmarElGabry/chat.io](https://github.com/OmarElGabry/chat.io). I have only cloned to show it being tested, added more features, added Cypress tests
+
+## About me
+
+- [@bahmutov](https://twitter.com/bahmutov)
+- [glebbahmutov.com](https://glebbahmutov.com)
+- [blog](https://glebbahmutov.com/blog)
+- [videos](https://www.youtube.com/glebbahmutov)
+- [presentations](https://slides.com/bahmutov)
+- [cypress.tips](https://cypress.tips)
 
 [ci image]: https://github.com/bahmutov/chat.io/workflows/ci/badge.svg?branch=main
 [ci url]: https://github.com/bahmutov/chat.io/actions
