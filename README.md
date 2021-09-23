@@ -77,6 +77,14 @@ Using [start-server-and-test](https://github.com/bahmutov/start-server-and-test)
 $ as-a chat.io npm run dev
 ```
 
+## Watching the server
+
+You can start the application server in watch mode. Any file change will automatically restart the server. Uses [nodemon](https://github.com/remy/nodemon)
+
+```shell
+$ npm run watch
+```
+
 ## History
 
 All props for this Chat app goes to the original repo [OmarElGabry/chat.io](https://github.com/OmarElGabry/chat.io). I have only cloned to show it being tested, added more features, added Cypress tests

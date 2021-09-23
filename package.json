@@ -7,6 +7,7 @@
     "test": "cypress run",
     "services": "docker-compose up",
     "start": "node server.js",
+    "watch": "nodemon server.js",
     "cy:open": "cypress open",
     "dev": "start-test 3000 cy:open",
     "ci": "start-test 3000"
@@ -41,8 +42,14 @@
   },
   "devDependencies": {
     "cypress": "^8.4.1",
+    "nodemon": "^2.0.12",
     "prettier": "^2.4.1",
     "socket.io-client": "^2",
     "start-server-and-test": "^1.14.0"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "app"
+    ]
   }
 }
