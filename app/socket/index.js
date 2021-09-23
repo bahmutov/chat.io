@@ -100,7 +100,9 @@ var ioEvents = function (io) {
                 }
               })
               console.log('room %s has %d message(s)', newRoom.id, msg.length)
-              console.table(msg)
+              if (msg.length) {
+                console.table(msg)
+              }
               socket.emit('roomMessages', msg)
             })
           })
