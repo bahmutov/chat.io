@@ -33,7 +33,13 @@ router.post(
 
 // Register via username and password
 router.post('/register', function (req, res, next) {
-  var credentials = { username: req.body.username, password: req.body.password }
+  const credentials = {
+    username: req.body.username,
+    password: req.body.password,
+  }
+  // debugging a user registration problem
+  console.log('/register')
+  console.log(credentials)
 
   if (credentials.username === '' || credentials.password === '') {
     req.flash('error', 'Missing credentials')
