@@ -7,6 +7,14 @@ var adapter = require('socket.io-redis')
 var Room = require('../models/room')
 
 /**
+ * @typedef Message
+ * @type {object}
+ * @property {string} username - The user name
+ * @property {string} content - The message itself
+ * @property {Date} date - The date of the message
+ */
+
+/**
  * Encapsulates all code for emitting and listening to socket events
  *
  */
@@ -49,7 +57,7 @@ var ioEvents = function (io) {
         if (!room) {
           // Assuming that you already checked in router that chatroom exists
           // Then, if a room doesn't exist here, return an error to inform the client-side.
-          socket.emit('updateUsersList', { error: 'Room doesnt exist.' })
+          socket.emit('updateUsersList', { error: 'Room does not exist.' })
         } else {
           // Check if user exists in the session
           if (socket.request.session.passport == null) {
@@ -63,7 +71,7 @@ var ioEvents = function (io) {
             Room.getUsers(
               newRoom,
               socket,
-              function (err, users, cuntUserInRoom) {
+              function (err, users, countUsersInRoom) {
                 if (err) throw err
 
                 // Return list of all user connected to the room to the current user
@@ -71,7 +79,7 @@ var ioEvents = function (io) {
 
                 // Return the current user to other connecting sockets in the room
                 // ONLY if the user wasn't connected already to the current room
-                if (cuntUserInRoom === 1) {
+                if (countUsersInRoom === 1) {
                   socket.broadcast
                     .to(newRoom.id)
                     .emit('updateUsersList', users[users.length - 1])
@@ -107,13 +115,24 @@ var ioEvents = function (io) {
     })
 
     // When a new message arrives
-    socket.on('newMessage', function (roomId, message) {
-      // No need to emit 'addMessage' to the current socket
-      // As the new message will be added manually in 'main.js' file
-      // socket.emit('addMessage', message);
+    socket.on(
+      'newMessage',
+      /** @param {Message} message */
+      function (roomId, message) {
+        // No need to emit 'addMessage' to the current socket
+        // As the new message will be added manually in 'main.js' file
+        // socket.emit('addMessage', message);
 
-      socket.broadcast.to(roomId).emit('addMessage', message)
-    })
+        console.log(
+          '%s in room %s says: %s',
+          message.username,
+          roomId,
+          message.content,
+        )
+
+        socket.broadcast.to(roomId).emit('addMessage', message)
+      },
+    )
   })
 }
 
