@@ -39,15 +39,19 @@ router.post('/login', function (req, res, next) {
 
   passport.authenticate('local', function (err, user, info) {
     if (err) {
+      console.error(err)
       return next(err)
     }
     if (!user) {
+      console.error('no user')
       req.flash('error', 'Incorrect username or password')
       req.flash('showRegisterForm', true)
       return res.redirect('/')
     }
     req.logIn(user, function (err) {
       if (err) {
+        console.error('problem logging the user')
+        console.error(err)
         return next(err)
       }
       return res.redirect('/rooms')
