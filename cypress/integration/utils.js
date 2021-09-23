@@ -23,14 +23,9 @@ export const registerOnly = (username, password) => {
 export const registerUser = (name) => {
   const username = name || `user ${random(1e5)}`
   const password = `pass-${random(1e10)}`
-  cy.visit('/').get('#create-account').click()
-  cy.get('.register-form')
-    .should('be.visible')
-    .within(() => {
-      cy.get('[placeholder=username]').type(username)
-      cy.get('[placeholder=password]').type(password)
-      cy.contains('button', 'create').click()
-    })
+
+  registerOnly(username, password)
+
   cy.get('.login-form')
     .should('be.visible')
     .within(() => {
