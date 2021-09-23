@@ -5,13 +5,14 @@
 ## Videos
 
 - TODO: connect to MongoDB and use tasks to clear rooms and users. Bonus: show how to use `cy.now` to call a task whenever we want from the DevTools
-- TODO: how to wait for jQuery animation `slideDown` to finish to make sure the element is fully visible
+- [Wait For jQuery slideDown Animation To Finish](https://youtu.be/vsH2SESJuik)
 - TODO: using docker-compose to run tests on GitHub Actions
 - TODO: using `cy.request` to create the user and log in
 - TODO: measure how long it takes to create a user and log in using the page UI vs `cy.request`
 - TODO: using WebSocket client to create a new room
 - TODO: using `cy.task` to create a new room
 - TODO: using spec events to clear the rooms and the users
+- TODO: how to restart the application and Cypress tests on changes
 
 ## Installation
 
