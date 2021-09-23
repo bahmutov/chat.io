@@ -22,14 +22,38 @@ router.get('/', function (req, res, next) {
 })
 
 // Login
-router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/rooms',
-    failureRedirect: '/',
-    failureFlash: true,
-  }),
-)
+// https://www.passportjs.org/docs/authenticate/
+// router.post(
+//   '/login',
+//   passport.authenticate('local', {
+//     successRedirect: '/rooms',
+//     failureRedirect: '/',
+//     failureFlash: true,
+//   }),
+// )
+// explicit route to print the login info
+router.post('/login', function (req, res, next) {
+  // debugging the login problem
+  console.log('/login')
+  console.log(req.body)
+
+  passport.authenticate('local', function (err, user, info) {
+    if (err) {
+      return next(err)
+    }
+    if (!user) {
+      req.flash('error', 'Incorrect username or password')
+      req.flash('showRegisterForm', true)
+      return res.redirect('/')
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err)
+      }
+      return res.redirect('/rooms')
+    })
+  })(req, res, next)
+})
 
 // Register via username and password
 router.post('/register', function (req, res, next) {
