@@ -44,6 +44,7 @@ router.post('/login', function (req, res, next) {
     }
     if (!user) {
       console.error('no user')
+      console.error(info)
       req.flash('error', 'Incorrect username or password')
       req.flash('showRegisterForm', true)
       return res.redirect('/')

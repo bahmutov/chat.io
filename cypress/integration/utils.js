@@ -25,7 +25,7 @@ export const registerUser = (name, pass) => {
   const password = pass || `pass-${random(1e10)}`
 
   registerOnly(username, password)
-  cy.wait(1000)
+  cy.task('getUsers').then(JSON.stringify).then(cy.log)
 
   cy.get('.login-form')
     .should('be.visible')

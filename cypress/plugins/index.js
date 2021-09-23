@@ -21,7 +21,7 @@ module.exports = (on, config) => {
         }
       })
       console.table(users)
-      return null
+      return users
     },
 
     async clearUsers() {
