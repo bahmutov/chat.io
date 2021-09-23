@@ -70,7 +70,7 @@ describe('group chat', () => {
 
     cy.wait(1000)
     cy.task('getUsers')
-    visitAsUser('C')
+    visitAsUser('userC')
     messageVisible('First!', 'A')
     messageVisible('Second!!', 'B')
     postMessage('Uggh, late again')
@@ -79,11 +79,11 @@ describe('group chat', () => {
     visitAsUser('A')
     messageVisible('First!', 'A')
     messageVisible('Second!!', 'B')
-    messageVisible('Uggh, late again', 'C')
+    messageVisible('Uggh, late again', 'userC')
     postMessage('No worries')
 
     // third user sees the reply
-    visitAsUser('C')
+    visitAsUser('userC')
     messageVisible('No worries', 'A')
   })
 })
