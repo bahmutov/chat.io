@@ -6,6 +6,9 @@
 
 - TODO: connect to MongoDB and use tasks to clear rooms and users. Bonus: show how to use `cy.now` to call a task whenever we want from the DevTools
 - TODO: how to wait for jQuery animation `slideDown` to finish to make sure the element is fully visible
+- TODO: using docker-compose to run tests on GitHub Actions
+- TODO: using `cy.request` to create the user and log in
+- TODO: using WebSocket client to create a new room
 
 ## Installation
 
