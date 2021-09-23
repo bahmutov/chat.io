@@ -77,13 +77,19 @@ Using [start-server-and-test](https://github.com/bahmutov/start-server-and-test)
 $ as-a chat.io npm run dev
 ```
 
-## Watching the server
+## Watching mode
+
+### Watching the server
 
 You can start the application server in watch mode. Any file change will automatically restart the server. Uses [nodemon](https://github.com/remy/nodemon)
 
 ```shell
 $ npm run watch
 ```
+
+### Watching the specs
+
+The Cypress tests automatically re-run when the spec files change. They also re-run when any files in the `public` folder change thanks to the [cypress-watch-and-reload](https://github.com/bahmutov/cypress-watch-and-reload) plugin.
 
 ## History
 
