@@ -5,26 +5,30 @@ import { registerUser } from './utils'
 // Socket.io client to allow Cypress itself
 // to connect from the plugin file to the chat app
 // to play the role of another user
-// https://socket.io/docs/v4/client-initialization/
-import { io } from 'socket.io-client'
+const io = require('socket.io-client')
 
-describe.skip('socket', () => {
+describe('socket', () => {
   beforeEach(() => {
     cy.task('clearUsers')
     cy.task('clearRooms')
   })
 
   it('connects from the test', () => {
+    // room name to create
+    const roomName = 'kitchen'
+
     const url = Cypress.config('baseUrl') + '/rooms'
-    console.log('connecting to WS at %s', url)
     const socket = io(url, {
       transports: ['websocket'],
     })
     socket.on('connect', () => {
-      console.log('creating new room')
-      socket.emit('createRoom', 'kitchen')
+      socket.emit('createRoom', roomName)
     })
 
-    // registerUser()
+    registerUser()
+    cy.location('pathname').should('equal', '/rooms')
+    cy.contains('.room-item', roomName).should('be.visible').click()
+    cy.location('pathname').should('include', '/chat/')
+    cy.contains('.chat-room', roomName).should('be.visible')
   })
 })
