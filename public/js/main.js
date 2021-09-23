@@ -46,6 +46,10 @@ var app = {
         }
       })
 
+      socket.on('roomMessages', function (messages) {
+        app.helpers.setMessages(messages)
+      })
+
       // Whenever the user hits the save button, emit newMessage event.
       $('.chat-message button').on('click', function (e) {
         var textareaEle = $("textarea[name='message']")
@@ -154,6 +158,28 @@ var app = {
         { scrollTop: $('.chat-history')[0].scrollHeight },
         1000,
       )
+    },
+
+    setMessages: function (messages) {
+      let html = ''
+      messages.forEach((message) => {
+        const date = new Date(message.date).toLocaleString()
+        const username = this.encodeHTML(message.username)
+        const content = this.encodeHTML(message.content)
+
+        const messageHtml = `
+          <li data-cy="message">
+            <div class="message-data">
+              <span class="message-data-name">${username}</span>
+              <span class="message-data-time">${date}</span>
+            </div>
+            <div class="message my-message" dir="auto">${content}</div>
+          </li>
+        `
+        html += messageHtml
+      })
+
+      $('.chat-history ul').html('').html(html)
     },
 
     // Update number of rooms

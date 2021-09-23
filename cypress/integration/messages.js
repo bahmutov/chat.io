@@ -9,6 +9,7 @@ describe('messages', () => {
 
   it('can be posted', () => {
     cy.session('Joe', () => {
+      cy.task('clearUsers')
       registerUser('Joe')
     })
     cy.visit('/rooms')
@@ -23,20 +24,33 @@ describe('messages', () => {
     cy.get('.chat-message').within(() => {
       cy.get('[name=message]').type('Hello')
       cy.contains('button', 'Send').click()
+
+      cy.get('[name=message]').type('I will be right back')
+      cy.contains('button', 'Send').click()
     })
 
+    cy.get('[data-cy=message]').should('have.length', 2)
     cy.contains('[data-cy=message]', 'Hello')
       .should('be.visible')
       .and('have.attr', 'style', '')
       .find('.message-data-name')
       .should('have.text', 'Joe')
+    cy.contains('[data-cy=message]', 'I will be')
+      .should('be.visible')
+      .and('have.attr', 'style', '')
+
     cy.log('**leaving the room**')
     cy.get('[data-cy=ToRooms]').click()
     cy.contains('.room-item', 'my own chat').should('be.visible').click()
     cy.log('**back in the room**')
     cy.contains('.chat-num-users', '1 User').should('be.visible')
-    // currently the previous messages in the chat are NOT listed
+
+    // We should see the previous messages
     cy.get('.chat-history').should('be.visible')
-    cy.contains('[data-cy=message]', 'Hello').should('not.exist')
+    cy.get('[data-cy=message]').should('have.length', 2)
+    cy.contains('[data-cy=message]', 'Hello').should('be.visible')
+    cy.contains('[data-cy=message]', 'I will be right back').should(
+      'be.visible',
+    )
   })
 })

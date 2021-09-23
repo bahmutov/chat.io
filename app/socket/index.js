@@ -5,6 +5,7 @@ var redis = require('redis').createClient
 var adapter = require('socket.io-redis')
 
 var Room = require('../models/room')
+const Message = require('../models/message')
 
 /**
  * @typedef Message
@@ -86,6 +87,23 @@ var ioEvents = function (io) {
                 }
               },
             )
+
+            Message.findAll(newRoom.id, function (err, messages) {
+              if (err) throw err
+              console.log('for room %s', newRoom.id)
+              console.log('found message')
+              console.log(messages)
+
+              // we are only interested in some props
+              const msg = messages.map((m) => {
+                return {
+                  content: m.content,
+                  username: m.username,
+                  date: m.date,
+                }
+              })
+              socket.emit('roomMessages', msg)
+            })
           })
         }
       })
@@ -128,6 +146,19 @@ var ioEvents = function (io) {
           message.username,
           roomId,
           message.content,
+        )
+        Message.add(
+          {
+            ...message,
+            roomId,
+          },
+          function (err, newMessage) {
+            if (err) {
+              console.error('Could not add the new message')
+              console.error(err)
+              throw err
+            }
+          },
         )
 
         socket.broadcast.to(roomId).emit('addMessage', message)

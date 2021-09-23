@@ -1,9 +1,9 @@
 'use strict'
 
-var Mongoose = require('mongoose')
+const Mongoose = require('mongoose')
 
 // Connect to the database
-var dbURI = process.env.MONGODB
+const dbURI = process.env.MONGODB
 if (!dbURI) {
   throw new Error('Missing MONGODB')
 }
@@ -24,5 +24,6 @@ module.exports = {
   models: {
     user: require('./schemas/user.js'),
     room: require('./schemas/room.js'),
+    message: require('./schemas/message.js'),
   },
 }
