@@ -4,7 +4,7 @@
 
 ## Videos
 
-- TODO: connect to MongoDB and use tasks to clear rooms and users. Bonus: show how to use `cy.now` to call a task whenever we want from the DevTools
+- [Use MongoDB From The Plugin File Or Call Task From DevTools Console](https://youtu.be/h-pXOjgZG24)
 - [Wait For jQuery slideDown Animation To Finish](https://youtu.be/vsH2SESJuik)
 - TODO: using docker-compose to run tests on GitHub Actions
 - TODO: using `cy.request` to create the user and log in
