@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { registerUser } from './utils'
+import { registerViaApi } from './utils'
 
 // Socket.io client to allow Cypress itself
 // to connect from the plugin file to the chat app
@@ -25,7 +25,8 @@ describe('socket', () => {
       socket.emit('createRoom', roomName)
     })
 
-    registerUser()
+    registerViaApi()
+    cy.visit('/rooms')
     cy.location('pathname').should('equal', '/rooms')
     cy.contains('.room-item', roomName).should('be.visible').click()
     cy.location('pathname').should('include', '/chat/')
