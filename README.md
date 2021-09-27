@@ -8,7 +8,7 @@
 - [Wait For jQuery slideDown Animation To Finish](https://youtu.be/vsH2SESJuik)
 - [Use Docker Compose To Run Application Locally And On GitHub Actions](https://youtu.be/QiaphZibZsE)
 - [Use cy.request Command To Create A User And Log in](https://youtu.be/EKq7RC_uNsA)
-- TODO: using WebSocket client to create a new room
+- [Connect And Send Socket Messages From Cypress Test](https://youtu.be/Wk4l8p9JQNA)
 - TODO: using `cy.task` to create a new room
 - TODO: using spec events to clear the rooms and the users
 - TODO: how to restart the application and Cypress tests on changes
