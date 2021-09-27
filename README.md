@@ -7,8 +7,7 @@
 - [Use MongoDB From The Plugin File Or Call Task From DevTools Console](https://youtu.be/h-pXOjgZG24)
 - [Wait For jQuery slideDown Animation To Finish](https://youtu.be/vsH2SESJuik)
 - [Use Docker Compose To Run Application Locally And On GitHub Actions](https://youtu.be/QiaphZibZsE)
-- TODO: using `cy.request` to create the user and log in
-- TODO: measure how long it takes to create a user and log in using the page UI vs `cy.request`
+- [Use cy.request Command To Create A User And Log in](https://youtu.be/EKq7RC_uNsA)
 - TODO: using WebSocket client to create a new room
 - TODO: using `cy.task` to create a new room
 - TODO: using spec events to clear the rooms and the users
