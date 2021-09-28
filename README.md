@@ -9,6 +9,7 @@
 - [Use Docker Compose To Run Application Locally And On GitHub Actions](https://youtu.be/QiaphZibZsE)
 - [Use cy.request Command To Create A User And Log in](https://youtu.be/EKq7RC_uNsA)
 - [Connect And Send Socket Messages From Cypress Test](https://youtu.be/Wk4l8p9JQNA)
+- [Use cy.session Command To Prepare Test Data But Only When Needed](https://youtu.be/1SOn8NbZF4o)
 - TODO: using `cy.task` to create a new room
 - TODO: using spec events to clear the rooms and the users
 - TODO: how to restart the application and Cypress tests on changes
