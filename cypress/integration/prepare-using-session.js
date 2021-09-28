@@ -2,6 +2,7 @@
 
 import { registerViaApi } from './utils'
 
+// compare this spec to the "prepare-rooms.js" file
 describe('prepare using cy.session', () => {
   beforeEach(() => {
     function setupTwoRooms() {
@@ -20,6 +21,9 @@ describe('prepare using cy.session', () => {
         })
     }
 
+    // by using "cy.session" with "validate" function
+    // we only clear the state and create the rooms when necessary
+    // https://on.cypress.io/session
     cy.session('has two rooms', setupTwoRooms, {
       validate,
     })
