@@ -21,6 +21,17 @@ async function clearUsers() {
   return null
 }
 
+async function getRooms() {
+  console.log('get rooms')
+  return database.models.room.find({})
+}
+
+async function makeRoom(title) {
+  const newRoom = await database.models.room.create({ title })
+  console.log('newRoom', newRoom)
+  return newRoom._id
+}
+
 module.exports = (on, config) => {
   // https://github.com/bahmutov/cypress-watch-and-reload
   require('cypress-watch-and-reload/plugins')(config)
@@ -46,11 +57,8 @@ module.exports = (on, config) => {
       return users
     },
 
-    async makeRoom(title) {
-      const newRoom = await database.models.room.create({ title })
-      console.log('newRoom', newRoom)
-      return newRoom._id
-    },
+    makeRoom,
+    getRooms,
 
     clearUsers,
     clearRooms,
