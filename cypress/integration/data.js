@@ -63,7 +63,21 @@ describe('prepare rooms', () => {
         .then((html) => html.includes('data-cy="rooms"'))
     }
 
-    cy.dataSession('user', setupUser, validateUser).then(loginViaApi)
+    // if the user object has been invalidated, invalidate the session too
+    function userInvalidated() {
+      cy.log('user invalidated')
+      // https://docs.cypress.io/api/cypress-api/session
+      // it would be nice if we could invalidate a single user session...
+      Cypress.session.clearAllSavedSessions()
+    }
+
+    cy.dataSession('user', setupUser, validateUser, userInvalidated).then(
+      (user) => {
+        cy.session('logged in user', () => {
+          loginViaApi(user)
+        })
+      },
+    )
   })
 
   it('logs in and sees two rooms', () => {
