@@ -1,87 +1,77 @@
 /// <reference types="cypress" />
 
-import { registerViaApi } from './utils'
+import { loginViaApi } from './utils'
+
+const { random } = Cypress._
 
 // in this test we will set up the data using cy.task commands
 // and we will cache it in the Cypress.env object
 
-// The predicate "validate" function checks the cached data
-// against the current data to determine if we need to re-run
-// the setup commands.
-Cypress.Commands.add('dataSession', (name, setup, validate) => {
-  const dataKey = 'dataSession:' + name
+describe('cy.session wrapped to yield room ids', () => {
+  function setupTwoRooms() {
+    const roomIds = []
+    // slow down each command to simulate an expensive setup
+    cy.task('clearRooms').wait(1000, { log: false })
+    cy.task('makeRoom', 'attic')
+      .wait(1000, { log: false })
+      .then((id) => roomIds.push(id))
+    cy.task('makeRoom', 'kitchen')
+      .wait(1000, { log: false })
+      .then((id) => roomIds.push(id))
+      .then(() => {
+        return roomIds
+      })
+  }
 
-  const setupAndSaveData = () => {
-    cy.then(setup).then((data) => {
-      if (data === undefined) {
-        throw new Error('dataSession cannot yield undefined')
-      }
-      // save the data for this session
-      Cypress.env(dataKey, data)
+  // this function cannot have failed Cypress commands
+  // it must yield a boolean value
+  function validate(ids) {
+    return cy.task('getRooms', null, { log: false }).then((rooms) => {
+      const roomIds = Cypress._.map(rooms, '_id')
+      return Cypress._.isEqual(roomIds, ids)
     })
   }
 
-  cy.log(`dataSession **${name}**`)
-  const value = Cypress.env(dataKey)
-  if (value === undefined) {
-    return setupAndSaveData()
+  function setupUser() {
+    const username = `user ${random(1e5)}`
+    const password = `pass-${random(1e10)}`
+
+    return cy
+      .request({
+        method: 'POST',
+        url: '/register',
+        form: true,
+        body: {
+          username,
+          password,
+        },
+      })
+      .then(() => {
+        return { username, password }
+      })
   }
 
-  cy.then(() => validate(value)).then((valid) => {
-    if (valid) {
-      cy.log(`data **${name}** is still valid`)
-      cy.wrap(value, { log: false })
-      return
-    }
+  function validateUser(user) {
+    cy.request({
+      method: 'POST',
+      url: '/login',
+      form: true,
+      body: user,
+      failOnStatusCode: false,
+    })
+      .its('body', { timeout: 0 })
+      .then((html) => html.includes('data-cy="rooms"'))
+  }
 
-    cy.log(`recompute data for **${name}**`)
-    // TODO: validate the value yielded by the setup
-    return setupAndSaveData()
-  })
-})
-// add a simple method to clear data for a specific session
-Cypress.clearDataSession = (name) => {
-  const dataKey = 'dataSession:' + name
-  Cypress.env(dataKey, undefined)
-  console.log('cleared data session "%s"', name)
-}
-
-describe('cy.session wrapped to yield room ids', () => {
   beforeEach(() => {
-    function setupTwoRooms() {
-      const roomIds = []
-      // slow down each command to simulate an expensive setup
-      cy.task('clearRooms').wait(1000, { log: false })
-      cy.task('makeRoom', 'attic')
-        .wait(1000, { log: false })
-        .then((id) => roomIds.push(id))
-      cy.task('makeRoom', 'kitchen')
-        .wait(1000, { log: false })
-        .then((id) => roomIds.push(id))
-        .then(() => {
-          return roomIds
-        })
-    }
-
-    // this function cannot have failed Cypress commands
-    // it must yield a boolean value
-    function validate(ids) {
-      return cy.task('getRooms', null, { log: false }).then((rooms) => {
-        const roomIds = Cypress._.map(rooms, '_id')
-        return Cypress._.isEqual(roomIds, ids)
-      })
-    }
-
     cy.dataSession('two rooms', setupTwoRooms, validate)
       // the .dataSession command yields the room ids
       .should('be.an', 'array')
       .and('have.length', 2)
       // and we can save it as an alias
       .as('roomIds')
-  })
 
-  beforeEach(() => {
-    registerViaApi()
+    cy.dataSession('user', setupUser, validateUser).as('user').then(loginViaApi)
   })
 
   it('logs in and sees two rooms', () => {
@@ -97,5 +87,10 @@ describe('cy.session wrapped to yield room ids', () => {
   it('visits the first chat root', function () {
     cy.visit(`/chat/${this.roomIds[0]}`)
     cy.contains('.chat-room', 'attic')
+  })
+
+  it('shows the user name', function () {
+    cy.visit('/')
+    cy.contains('.user-info', this.user.username).should('be.visible')
   })
 })

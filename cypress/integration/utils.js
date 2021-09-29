@@ -50,6 +50,11 @@ export const registerViaApi = (name, pass) => {
       password,
     },
   })
+  return loginViaApi({ username, password })
+}
+
+export const loginViaApi = ({ username, password }) => {
+  cy.log(`log in user **${username}**`)
   // when requesting the page using cy.request,
   // the returned cookies are set too!
   cy.request('/')
