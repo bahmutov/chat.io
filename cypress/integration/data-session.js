@@ -66,24 +66,36 @@ describe('cy.session wrapped to yield room ids', () => {
     // this function cannot have failed Cypress commands
     // it must yield a boolean value
     function validate(ids) {
-      return cy.task('getRooms').then((rooms) => {
+      return cy.task('getRooms', null, { log: false }).then((rooms) => {
         const roomIds = Cypress._.map(rooms, '_id')
         return Cypress._.isEqual(roomIds, ids)
       })
     }
 
     cy.dataSession('two rooms', setupTwoRooms, validate)
+      // the .dataSession command yields the room ids
+      .should('be.an', 'array')
+      .and('have.length', 2)
+      // and we can save it as an alias
+      .as('roomIds')
+  })
+
+  beforeEach(() => {
+    registerViaApi()
   })
 
   it('logs in and sees two rooms', () => {
-    registerViaApi()
     cy.visit('/rooms')
     cy.get('[data-cy=room]').should('have.length', 2)
   })
 
   it('has the kitchen', () => {
-    registerViaApi()
     cy.visit('/rooms')
     cy.contains('[data-cy=room]', 'kitchen')
+  })
+
+  it('visits the first chat root', function () {
+    cy.visit(`/chat/${this.roomIds[0]}`)
+    cy.contains('.chat-room', 'attic')
   })
 })
