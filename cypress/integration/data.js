@@ -76,7 +76,7 @@ describe('prepare rooms', () => {
     cy.contains('.chat-room', 'attic')
   })
 
-  it.only('shows the user name', function () {
+  it('shows the user name', function () {
     cy.visit(`/rooms`)
     cy.contains('.user-info', this.user.username)
   })
