@@ -21,6 +21,15 @@ async function clearUsers() {
   return null
 }
 
+async function deleteUser(id) {
+  console.log('deleting user', id)
+  if (typeof id !== 'string') {
+    throw new Error('Expected user id')
+  }
+  await database.models.user.deleteOne({ _id: id })
+  return null
+}
+
 async function getRooms() {
   console.log('get rooms')
   const found = await database.models.room.find({})
@@ -80,5 +89,6 @@ module.exports = (on, config) => {
     makeRoom,
     clearUsers,
     clearRooms,
+    deleteUser,
   })
 }
