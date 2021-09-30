@@ -1,7 +1,7 @@
 // @ts-check
 /// <reference types="cypress-data-session" />
 
-describe('log in using cypress-data-session', () => {
+describe('login using cypress-data-session', () => {
   beforeEach(() => {
     const username = 'Gleb-' + Cypress._.random(1e3)
     const password = '¡SoSecret!'
