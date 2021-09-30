@@ -3,6 +3,7 @@
 // https://glebbahmutov.com/blog/testing-mongo-with-cypress/
 
 const database = require('../../app/database')
+const { registerUser } = require('../../app/models/user')
 
 // if you are not sure about the database, print the models
 // console.log('database models', database.models)
@@ -59,6 +60,16 @@ async function makeRoom(title) {
   return newRoom._id
 }
 
+async function makeUser(credentials) {
+  console.log('makeUser', credentials?.username)
+  const errorMessageMaybe = await registerUser(credentials)
+  if (errorMessageMaybe) {
+    throw new Error(errorMessageMaybe)
+  }
+  console.log('made user', credentials.username)
+  return null
+}
+
 async function getUsers() {
   console.log('getUsers')
   const docs = await database.models.user.find({})
@@ -87,6 +98,7 @@ module.exports = (on, config) => {
     findUser,
     // mutations
     makeRoom,
+    makeUser,
     clearUsers,
     clearRooms,
     deleteUser,
