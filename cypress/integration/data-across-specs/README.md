@@ -1,0 +1,1 @@
+Several specs sharing common setup. The setup is performed using `cy.dataSession` command with `shareAcrossSpecs: true` option. See [cypress-data-session](https://github.com/bahmutov/cypress-data-session) plugin.

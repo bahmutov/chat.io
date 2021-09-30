@@ -23,7 +23,25 @@ async function clearUsers() {
 
 async function getRooms() {
   console.log('get rooms')
-  return database.models.room.find({})
+  const found = await database.models.room.find({})
+  console.log(found)
+  return found
+}
+
+async function getRoom(id) {
+  console.log('get room with id', id)
+  if (typeof id !== 'string') {
+    throw new Error('id must be a string')
+  }
+  return database.models.room.findOne({ _id: id })
+}
+
+async function findUser(username) {
+  console.log('find user', username)
+  if (typeof username !== 'string') {
+    throw new Error('username must be a string')
+  }
+  return database.models.user.findOne({ username })
 }
 
 async function makeRoom(title) {
@@ -35,6 +53,9 @@ async function makeRoom(title) {
 module.exports = (on, config) => {
   // https://github.com/bahmutov/cypress-watch-and-reload
   require('cypress-watch-and-reload/plugins')(config)
+
+  // https://github.com/bahmutov/cypress-data-session
+  require('cypress-data-session/src/plugin')(on, config)
 
   // https://on.cypress.io/before-spec-api
   on('before:spec', async (spec) => {
@@ -59,7 +80,8 @@ module.exports = (on, config) => {
 
     makeRoom,
     getRooms,
-
+    getRoom,
+    findUser,
     clearUsers,
     clearRooms,
   })
