@@ -50,6 +50,19 @@ async function makeRoom(title) {
   return newRoom._id
 }
 
+async function getUsers() {
+  console.log('getUsers')
+  const docs = await database.models.user.find({})
+  const users = docs.map((doc) => {
+    return {
+      username: doc.username,
+      password: doc.password,
+    }
+  })
+  console.table(users)
+  return users
+}
+
 module.exports = (on, config) => {
   // https://github.com/bahmutov/cypress-watch-and-reload
   require('cypress-watch-and-reload/plugins')(config)
@@ -58,23 +71,13 @@ module.exports = (on, config) => {
   require('cypress-data-session/src/plugin')(on, config)
 
   on('task', {
-    async getUsers() {
-      console.log('getUsers')
-      const docs = await database.models.user.find({})
-      const users = docs.map((doc) => {
-        return {
-          username: doc.username,
-          password: doc.password,
-        }
-      })
-      console.table(users)
-      return users
-    },
-
-    makeRoom,
+    // queries
+    getUsers,
     getRooms,
     getRoom,
     findUser,
+    // mutations
+    makeRoom,
     clearUsers,
     clearRooms,
   })
