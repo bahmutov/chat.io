@@ -10,7 +10,7 @@
   "packageRules": [
     {
       "packagePatterns": ["*"],
-      "excludePackagePatterns": ["cypress"],
+      "excludePackagePatterns": ["cypress", "cypress-data-session"],
       "enabled": false
     }
   ]
