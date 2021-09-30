@@ -79,7 +79,6 @@ router.post('/register', function (req, res, next) {
     User.findOne(
       {
         username: new RegExp('^' + req.body.username + '$', 'i'),
-        socialId: null,
       },
       function (err, user) {
         if (err) throw err
