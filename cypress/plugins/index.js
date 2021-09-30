@@ -57,13 +57,6 @@ module.exports = (on, config) => {
   // https://github.com/bahmutov/cypress-data-session
   require('cypress-data-session/src/plugin')(on, config)
 
-  // https://on.cypress.io/before-spec-api
-  on('before:spec', async (spec) => {
-    console.log('before:spec', spec.name)
-    await clearRooms()
-    await clearUsers()
-  })
-
   on('task', {
     async getUsers() {
       console.log('getUsers')

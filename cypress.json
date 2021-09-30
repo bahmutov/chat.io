@@ -2,7 +2,6 @@
   "fixturesFolder": false,
   "baseUrl": "http://localhost:3000",
   "experimentalSessionSupport": true,
-  "experimentalInteractiveRunEvents": true,
   "ignoreTestFiles": ["utils.js", "README.md"],
   "projectId": "f1j79r",
   "cypress-watch-and-reload": {
