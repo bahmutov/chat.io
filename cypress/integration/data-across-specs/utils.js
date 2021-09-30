@@ -1,10 +1,10 @@
 /// <reference types="cypress-data-session" />
 
-export function createRoom() {
+export function createRoom(name = 'basement') {
   return cy.dataSession({
-    name: 'basement',
+    name,
     setup: () => {
-      return cy.task('makeRoom', 'basement')
+      return cy.task('makeRoom', name)
     },
     validate(id) {
       return cy.task('getRoom', id, { log: false })
