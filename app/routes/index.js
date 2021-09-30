@@ -74,31 +74,20 @@ router.post('/register', function (req, res, next) {
     req.flash('error', 'Missing credentials')
     req.flash('showRegisterForm', true)
     res.redirect('/')
-  } else {
-    // Check if the username already exists for non-social account
-    User.findOne(
-      {
-        username: new RegExp('^' + req.body.username + '$', 'i'),
-      },
-      function (err, user) {
-        if (err) throw err
-        if (user) {
-          req.flash('error', 'Username already exists.')
-          req.flash('showRegisterForm', true)
-          res.redirect('/')
-        } else {
-          User.create(credentials, function (err, newUser) {
-            if (err) throw err
-            req.flash(
-              'success',
-              'Your account has been created. Please log in.',
-            )
-            res.redirect('/')
-          })
-        }
-      },
-    )
+    return
   }
+
+  User.registerUser(credentials).then((errorMessageMaybe) => {
+    if (typeof errorMessageMaybe === 'string') {
+      req.flash('error', errorMessageMaybe)
+      req.flash('showRegisterForm', true)
+      res.redirect('/')
+      return
+    }
+
+    req.flash('success', 'Your account has been created. Please log in.')
+    res.redirect('/')
+  })
 })
 
 // Rooms

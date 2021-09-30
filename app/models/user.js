@@ -1,3 +1,4 @@
+// @ts-check
 'use strict'
 
 var userModel = require('../database').models.user
@@ -27,9 +28,38 @@ var isAuthenticated = function (req, res, next) {
   }
 }
 
+async function registerUser(credentials) {
+  if (!credentials) {
+    throw new Error('Missing credentials')
+  }
+
+  if (!credentials.username) {
+    throw new Error('Missing username')
+  }
+
+  if (!credentials.password) {
+    throw new Error('Missing password')
+  }
+
+  // Check if the username already exists
+  const user = await userModel
+    .findOne({
+      username: new RegExp('^' + credentials.username + '$', 'i'),
+    })
+    .exec()
+
+  if (user) {
+    console.log(user)
+    return 'Username already exists.'
+  }
+
+  await userModel.create(credentials)
+}
+
 module.exports = {
   create,
   findOne,
   findById,
   isAuthenticated,
+  registerUser,
 }
