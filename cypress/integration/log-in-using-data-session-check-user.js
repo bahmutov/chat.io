@@ -7,7 +7,7 @@ describe('login using cypress-data-session (check user first)', () => {
     const password = '¡SoSecret!'
     cy.dataSession({
       name: 'user',
-      setup() {
+      preSetup() {
         // before creating the user with the fixed username
         // check if the user already exists, delete it if it does
         cy.task('findUser', username).then((user) => {
@@ -16,7 +16,8 @@ describe('login using cypress-data-session (check user first)', () => {
             cy.task('deleteUser', user._id)
           }
         })
-
+      },
+      setup() {
         cy.visit('/').get('#create-account').should('be.visible').click()
         cy.get('.register-form')
           .should('be.visible')
