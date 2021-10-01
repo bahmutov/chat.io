@@ -53,7 +53,8 @@ async function registerUser(credentials) {
     return 'Username already exists.'
   }
 
-  await userModel.create(credentials)
+  const newUser = await userModel.create(credentials)
+  return newUser
 }
 
 module.exports = {

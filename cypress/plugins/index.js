@@ -62,12 +62,16 @@ async function makeRoom(title) {
 
 async function makeUser(credentials) {
   console.log('makeUser', credentials?.username)
-  const errorMessageMaybe = await registerUser(credentials)
-  if (errorMessageMaybe) {
-    throw new Error(errorMessageMaybe)
+  const errorMessageOrUser = await registerUser(credentials)
+  if (typeof errorMessageOrUser === 'string') {
+    throw new Error(errorMessageOrUser)
   }
-  console.log('made user', credentials.username)
-  return null
+  console.log(
+    'made user %s id %s',
+    credentials.username,
+    errorMessageOrUser._id,
+  )
+  return errorMessageOrUser._id
 }
 
 async function getUsers() {
