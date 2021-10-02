@@ -19,7 +19,7 @@ jobs:
         run: |
           n=$(git diff --name-only origin/main | grep cypress/integration | wc -l | tr -d ' ')
           echo "number of added or changed Cypress specs ${n}"
-          specs=$(git diff --name-only origin/main | grep cypress/integration | tr '\n' ',' | tr '\n$', ' ')
+          specs=$(git diff --name-only origin/main | grep cypress/integration | tr '\n' ',')
 
           # output the number of specs and the specs list
           echo "::set-output name=specsN::${n}"
