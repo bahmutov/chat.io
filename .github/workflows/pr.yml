@@ -15,18 +15,42 @@ jobs:
         run: git diff --name-only origin/main
 
       - name: List changed specs ✨
+        id: list-changed-specs
         run: |
           n=$(git diff --name-only origin/main | grep cypress/integration | wc -l | tr -d ' ')
           echo "number of added or changed Cypress specs ${n}"
-          # git diff --name-only origin/main | grep cypress/integration | tr '\n' ',' | tr '\n$', ' '
+          specs=$(git diff --name-only origin/main | grep cypress/integration | tr '\n' ',' | tr '\n$', ' ')
+
+          # output the number of specs and the specs list
+          echo "::set-output name=specsN::${n}"
+          echo "::set-output name=specs::${specs}"
 
       # run utility services in the background
       # using docker-compose (see docker-compose.yml file)
-      # - name: Run docker-compose
-      #   run: docker-compose up -d
+      - name: Run docker-compose
+        run: docker-compose up -d
 
-      # # https://github.com/cypress-io/github-action
-      # - name: Cypress tests 🧪
+      # https://github.com/cypress-io/github-action
+      - name: Run changed Cypress specs first 🌲
+        # it makes sense to run changed specs only if there are a few
+        # otherwise just run all specs in the next step
+        if: ${{ steps.list-changed-specs.outputs.specsN > 0 && steps.list-changed-specs.outputs.specsN < 5 }}
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          record: true
+          group: '1. Changed specs'
+          spec: ${{ steps.list-changed-specs.outputs.specs }}
+        env:
+          # for recording test results and videos to Cypress Dashboard
+          CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
+          # for connecting to the Mongo and Redis services
+          # see docker-compose.yml file
+          SESSION_SECRET: SoMeSeCrEtStrInG
+          MONGODB: mongodb://root:rootPass1234@localhost:27017/
+
+      # - name: All Cypress tests 🧪
       #   uses: cypress-io/github-action@v2
       #   with:
       #     start: npm start
