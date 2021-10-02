@@ -30,6 +30,16 @@ jobs:
       - name: Run docker-compose
         run: docker-compose up -d
 
+      # install dependencies
+      - name: Install dependencies 📦
+        uses: cypress-io/github-action@v2
+        with:
+          # just perform install
+          runTests: false
+
+      - name: Start the app 🏁
+        run: npm start
+
       # https://github.com/cypress-io/github-action
       - name: Run changed Cypress specs first 🌲
         # it makes sense to run changed specs only if there are a few
@@ -37,7 +47,9 @@ jobs:
         if: ${{ steps.list-changed-specs.outputs.specsN > 0 && steps.list-changed-specs.outputs.specsN < 5 }}
         uses: cypress-io/github-action@v2
         with:
-          start: npm start
+          # we have already installed all dependencies above
+          install: false
+          # the server is running already, but just wait for it
           wait-on: 'http://localhost:3000'
           record: true
           group: '1. Changed specs'
@@ -50,17 +62,20 @@ jobs:
           SESSION_SECRET: SoMeSeCrEtStrInG
           MONGODB: mongodb://root:rootPass1234@localhost:27017/
 
-      # - name: All Cypress tests 🧪
-      #   uses: cypress-io/github-action@v2
-      #   with:
-      #     start: npm start
-      #     wait-on: 'http://localhost:3000'
-      #     record: true
-      #     # spec: cypress/integration/group-chat.js
-      #   env:
-      #     # for recording test results and videos to Cypress Dashboard
-      #     CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
-      #     # for connecting to the Mongo and Redis services
-      #     # see docker-compose.yml file
-      #     SESSION_SECRET: SoMeSeCrEtStrInG
-      #     MONGODB: mongodb://root:rootPass1234@localhost:27017/
+      # if the changed / added Cypress tests passed
+      # run all Cypress tests to confirm the app is working
+      - name: All Cypress tests 🧪
+        uses: cypress-io/github-action@v2
+        with:
+          # we have already installed all dependencies above
+          install: false
+          wait-on: 'http://localhost:3000'
+          record: true
+          group: '2. All Cypress tests'
+        env:
+          # for recording test results and videos to Cypress Dashboard
+          CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
+          # for connecting to the Mongo and Redis services
+          # see docker-compose.yml file
+          SESSION_SECRET: SoMeSeCrEtStrInG
+          MONGODB: mongodb://root:rootPass1234@localhost:27017/
