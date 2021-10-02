@@ -4,13 +4,13 @@
 import { createRoom } from './utils'
 import { registerViaApi } from '../utils'
 
-it('has the basement room 2', () => {
-  createRoom()
+it('has the bedroom 2', () => {
+  createRoom('bedroom')
   registerViaApi()
 
   // the alias was set in the "createRoom" function
-  cy.get('@basement').then((id) => {
+  cy.get('@bedroom').then((id) => {
     cy.visit(`/chat/${id}`)
-    cy.contains('.chat-room', 'basement')
+    cy.contains('.chat-room', 'bedroom')
   })
 })
