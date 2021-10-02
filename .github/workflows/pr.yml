@@ -38,7 +38,7 @@ jobs:
           runTests: false
 
       - name: Start the app 🏁
-        run: npm start
+        run: npm start &
         env:
           # for connecting to the Mongo and Redis services
           # see docker-compose.yml file
