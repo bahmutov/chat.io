@@ -10,10 +10,10 @@ jobs:
       # https://github.com/actions/checkout
       - name: Check out main branch 🛎
         uses: actions/checkout@v2
-        # with:
-        #   # need to fetch info about all branches
-        #   # to determine changes spec files
-        #   fetch-depth: 0
+        with:
+          # need to fetch info about all branches
+          # to determine the changed spec files
+          fetch-depth: 0
 
       - name: List changed files 🗂
         # should we get the branch names from the PR?
@@ -34,7 +34,7 @@ jobs:
 
       # run utility services in the background
       # using docker-compose (see docker-compose.yml file)
-      - name: Run docker-compose
+      - name: Run docker-compose 🐳
         run: docker-compose up -d
 
       # install dependencies
