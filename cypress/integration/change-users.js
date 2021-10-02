@@ -4,6 +4,8 @@ import { registerUser } from './utils'
 
 describe('different users', () => {
   it('can log in instantly', () => {
+    // we are using cy.session command
+    // https://on.cypress.io/session
     cy.session('first user', () => registerUser('first'))
     cy.visit('/rooms')
     cy.contains('.user-info', 'first')
