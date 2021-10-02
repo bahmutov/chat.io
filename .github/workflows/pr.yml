@@ -10,13 +10,21 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+
+      - run: git status
+
       - name: Check out code 🛎
         # https://github.com/actions/checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - run: git checkout HEAD^
 
       - name: List changed files 🗂
         # should we get the branch names from the PR?
-        run: git diff --name-only main
+        run: |
+          git branch
+          git diff --name-only main
 
       # run utility services in the background
       # using docker-compose (see docker-compose.yml file)
