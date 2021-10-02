@@ -4,11 +4,15 @@ jobs:
   test-changed-specs:
     runs-on: ubuntu-20.04
     steps:
+      # https://github.com/actions/checkout
+      - name: Check out main branch 🛎
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 0
       - name: Check out code 🛎
         # https://github.com/actions/checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: List changed files 🗂
         # should we get the branch names from the PR?
