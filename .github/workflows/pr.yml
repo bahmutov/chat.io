@@ -14,6 +14,12 @@ jobs:
         # should we get the branch names from the PR?
         run: git diff --name-only origin/main
 
+      - name: List changed specs ✨
+        run: |
+          n=$(git diff --name-only main | grep cypress/integration | wc -l | tr -d ' ')
+          echo "number of added or changed Cypress specs ${n}"
+          # git diff --name-only origin/main | grep cypress/integration | tr '\n' ',' | tr '\n$', ' '
+
       # run utility services in the background
       # using docker-compose (see docker-compose.yml file)
       # - name: Run docker-compose
