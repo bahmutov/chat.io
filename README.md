@@ -1,4 +1,4 @@
-# chat.io [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-8.4.1-brightgreen)
+# chat.io [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-8.5.0-brightgreen)
 [![ci status][ci image]][ci url] [![chat.io](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/f1j79r/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/f1j79r/runs)
 > Cypress.io testing for a chat application that requires auth
 
