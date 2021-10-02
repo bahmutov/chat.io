@@ -1,5 +1,9 @@
 name: ci
-on: [push]
+# run all tests on the main branch
+on:
+  push:
+    branches:
+      - main
 jobs:
   test:
     runs-on: ubuntu-20.04

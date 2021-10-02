@@ -1,4 +1,7 @@
 name: pr
+# on pull request, determine changed or added Cypress specs
+# if there are any (but not too many), run them first
+# then run all Cypress specs
 on: [pull_request]
 jobs:
   test-changed-specs:
@@ -7,8 +10,10 @@ jobs:
       # https://github.com/actions/checkout
       - name: Check out main branch 🛎
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+        # with:
+        #   # need to fetch info about all branches
+        #   # to determine changes spec files
+        #   fetch-depth: 0
 
       - name: List changed files 🗂
         # should we get the branch names from the PR?
@@ -18,8 +23,10 @@ jobs:
         id: list-changed-specs
         run: |
           n=$(git diff --name-only origin/main | grep cypress/integration | wc -l | tr -d ' ')
-          echo "number of added or changed Cypress specs ${n}"
           specs=$(git diff --name-only origin/main | grep cypress/integration | tr '\n' ',')
+          echo "Changed and added Cypress specs"
+          echo ${specs}
+          echo "number of added or changed Cypress specs ${n}"
 
           # output the number of specs and the specs list
           echo "::set-output name=specsN::${n}"
@@ -67,6 +74,7 @@ jobs:
 
       # if the changed / added Cypress tests passed
       # run all Cypress tests to confirm the app is working
+      # TODO: run several machines in parallel
       - name: All Cypress tests 🧪
         uses: cypress-io/github-action@v2
         with:
