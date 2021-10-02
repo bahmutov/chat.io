@@ -39,6 +39,11 @@ jobs:
 
       - name: Start the app 🏁
         run: npm start
+        env:
+          # for connecting to the Mongo and Redis services
+          # see docker-compose.yml file
+          SESSION_SECRET: SoMeSeCrEtStrInG
+          MONGODB: mongodb://root:rootPass1234@localhost:27017/
 
       # https://github.com/cypress-io/github-action
       - name: Run changed Cypress specs first 🌲
@@ -57,9 +62,7 @@ jobs:
         env:
           # for recording test results and videos to Cypress Dashboard
           CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
-          # for connecting to the Mongo and Redis services
-          # see docker-compose.yml file
-          SESSION_SECRET: SoMeSeCrEtStrInG
+          # Cypress connects to MongoDB in some tests
           MONGODB: mongodb://root:rootPass1234@localhost:27017/
 
       # if the changed / added Cypress tests passed
@@ -75,7 +78,5 @@ jobs:
         env:
           # for recording test results and videos to Cypress Dashboard
           CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
-          # for connecting to the Mongo and Redis services
-          # see docker-compose.yml file
-          SESSION_SECRET: SoMeSeCrEtStrInG
+          # Cypress connects to MongoDB in some tests
           MONGODB: mongodb://root:rootPass1234@localhost:27017/
