@@ -8,17 +8,9 @@ jobs:
       - name: Check out main branch 🛎
         uses: actions/checkout@v2
         with:
-          ref: main
           fetch-depth: 0
 
       - run: git status
-
-      - name: Check out code 🛎
-        # https://github.com/actions/checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - run: git checkout HEAD^
 
       - name: List changed files 🗂
         # should we get the branch names from the PR?
