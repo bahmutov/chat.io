@@ -10,13 +10,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: git status
-
       - name: List changed files 🗂
         # should we get the branch names from the PR?
-        run: |
-          git branch
-          git diff --name-only main
+        run: git diff --name-only origin/main
 
       # run utility services in the background
       # using docker-compose (see docker-compose.yml file)
