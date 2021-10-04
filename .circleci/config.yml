@@ -30,7 +30,10 @@ workflows:
       # every testing job needs to install dependencies and Cypress
       - cypress/install:
           name: Install
-          executor: with-services
+          # to install dependencies, we do not need other services
+          # so let's use the executor close to what the tests will use
+          # https://github.com/cypress-io/circleci-orb/blob/master/docs/executors.md
+          executor: cypress/base-14
 
       # this job runs on commits to the "main" branch
       # https://circleci.com/docs/2.0/configuration-reference/#triggers
