@@ -10,13 +10,17 @@ executors:
       # run our server and run Cypress tests
       - image: cypress/base:14.16.0
         environment:
+          # for connecting to the Mongo and Redis services
           MONGODB: mongodb://root:rootPass1234@localhost:27017/
+          SESSION_SECRET: SoMeSeCrEtStrInG
 
       # image used to run Mongo in a separate container
       - image: mongo:4.4.5
         environment:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: rootPass1234
+      # image for running Redis
+      - image: redis:alpine
 
 workflows:
   # to run MongoDB on CircleCI, follow the instructions
@@ -25,7 +29,7 @@ workflows:
     jobs:
       - cypress/run:
           executor: with-services
-          start: docker-compose up
+          start: npm start
           wait-on: 'http://localhost:3000'
           record: true
           group: Circle Tests
