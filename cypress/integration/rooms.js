@@ -4,7 +4,7 @@ import { registerUser } from './utils'
 
 const { random } = Cypress._
 
-describe('rooms', () => {
+describe('creating rooms', () => {
   beforeEach(() => {
     cy.task('clearRooms')
     cy.session('logged in', registerUser)
