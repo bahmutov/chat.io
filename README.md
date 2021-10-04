@@ -89,6 +89,8 @@ $ as-a chat.io npm run dev
 
 ## Watching mode
 
+This mode speeds the local development
+
 ### Watching the server
 
 You can start the application server in watch mode. Any file change will automatically restart the server. Uses [nodemon](https://github.com/remy/nodemon)

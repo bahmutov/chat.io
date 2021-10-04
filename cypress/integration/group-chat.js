@@ -59,29 +59,29 @@ describe('group chat', () => {
   }
 
   it('messages going around', () => {
-    visitAsUser('A')
+    visitAsUser('userA')
     // we are in the right room
     cy.contains('.chat-room', 'hang')
     postMessage('First!')
 
-    visitAsUser('B')
-    messageVisible('First!', 'A')
+    visitAsUser('userB')
+    messageVisible('First!', 'userA')
     postMessage('Second!!')
 
     visitAsUser('userC')
-    messageVisible('First!', 'A')
-    messageVisible('Second!!', 'B')
+    messageVisible('First!', 'userA')
+    messageVisible('Second!!', 'userB')
     postMessage('Uggh, late again')
 
     // back to the first user
-    visitAsUser('A')
-    messageVisible('First!', 'A')
-    messageVisible('Second!!', 'B')
+    visitAsUser('userA')
+    messageVisible('First!', 'userA')
+    messageVisible('Second!!', 'userB')
     messageVisible('Uggh, late again', 'userC')
     postMessage('No worries')
 
     // third user sees the reply
     visitAsUser('userC')
-    messageVisible('No worries', 'A')
+    messageVisible('No worries', 'userA')
   })
 })
