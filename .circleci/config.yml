@@ -5,6 +5,8 @@ orbs:
 
 executors:
   with-services:
+    # to run MongoDB and Redis on CircleCI, follow the instructions
+    # https://glebbahmutov.com/blog/testing-mongo-with-cypress/
     docker:
       # image used to install source code,
       # run our server and run Cypress tests
@@ -23,11 +25,15 @@ executors:
       - image: redis:alpine
 
 workflows:
-  # to run MongoDB on CircleCI, follow the instructions
-  # https://glebbahmutov.com/blog/testing-mongo-with-cypress/
   build:
     jobs:
+      # this job runs on commits to the "main" branch
+      # https://circleci.com/docs/2.0/configuration-reference/#triggers
       - cypress/run:
+          name: Run all tests
+          filters:
+            branches:
+              only: main
           executor: with-services
           start: npm start
           wait-on: 'http://localhost:3000'

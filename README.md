@@ -109,7 +109,7 @@ All props for this Chat app goes to the original repo [OmarElGabry/chat.io](http
 
 ## Continuous Integration
 
-The tests run automatically on pull requests, and the changed specs run first, read the blog post [Get Faster Feedback From Your Cypress Tests](https://glebbahmutov.com/blog/faster-ci-feedback/). The tests run on GitHub Actions, see the workflows in [./.github/workflows](./.github/workflows) folder.
+The tests run automatically on pull requests, and the changed specs run first, read the blog post [Get Faster Feedback From Your Cypress Tests](https://glebbahmutov.com/blog/faster-ci-feedback/). The tests run on GitHub Actions, see the workflows in [.github/workflows](./.github/workflows) folder.
 
 ## About me
 
