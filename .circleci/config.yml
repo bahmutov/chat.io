@@ -27,6 +27,11 @@ executors:
 workflows:
   build:
     jobs:
+      # every testing job needs to install dependencies and Cypress
+      - cypress/install:
+          name: Install
+          executor: with-services
+
       # this job runs on commits to the "main" branch
       # https://circleci.com/docs/2.0/configuration-reference/#triggers
       - cypress/run:
@@ -35,8 +40,11 @@ workflows:
             branches:
               only: main
           executor: with-services
+          requires:
+            - Install
           start: npm start
           wait-on: 'http://localhost:3000'
           record: true
+          parallel: true
           group: Circle Tests
           no-workspace: true
