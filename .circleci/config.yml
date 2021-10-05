@@ -53,7 +53,7 @@ workflows:
           # to "trick" the Orb into NOT installing again
           # (the dependencies were installed in the Install job)
           # we use the dummy "install-command"
-          install-command: echo "Already installed"
+          install-command: echo Already installed
           start: npm start
           wait-on: 'http://localhost:3000'
           no-workspace: true
