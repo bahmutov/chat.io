@@ -48,6 +48,8 @@ workflows:
           start: npm start
           wait-on: 'http://localhost:3000'
           record: true
+          # split all specs across 4 machines
           parallel: true
+          parallelism: 4
           group: Circle Tests
           no-workspace: true
