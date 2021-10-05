@@ -54,6 +54,11 @@ async function findUser(username) {
   return database.models.user.findOne({ username })
 }
 
+async function getUser(id) {
+  console.log('get user with id %s', id)
+  return database.models.user.findOne({ _id: id })
+}
+
 async function makeRoom(title) {
   const newRoom = await database.models.room.create({ title })
   console.log('newRoom', newRoom)
@@ -100,6 +105,7 @@ module.exports = (on, config) => {
     getRooms,
     getRoom,
     findUser,
+    getUser,
     // mutations
     makeRoom,
     makeUser,
