@@ -10,7 +10,8 @@ export function createRoom(name = 'basement') {
     },
     validate(id) {
       // yields undefined if the room was not found
-      return cy.task('getRoom', id, { log: false })
+      // which we convert into a boolean value
+      return cy.task('getRoom', id, { log: false }).then(Boolean)
     },
     shareAcrossSpecs: true,
   })
