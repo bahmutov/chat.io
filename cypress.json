@@ -6,5 +6,9 @@
   "projectId": "f1j79r",
   "cypress-watch-and-reload": {
     "watch": "public/**/*"
+  },
+  "retries": {
+    "runMode": 1,
+    "openMode": 0
   }
 }
