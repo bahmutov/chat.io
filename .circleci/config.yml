@@ -79,6 +79,8 @@ workflows:
           no-workspace: true
           command: |
             git diff --name-only origin/main
+            # by now we know there are changed Cypress specs
+            # so we know grep command will not fail
             specs=$(git diff --name-only origin/main | grep cypress/integration | tr '\n' ',')
             echo ""
             echo "Changed and added Cypress specs"
