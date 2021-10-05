@@ -5,7 +5,9 @@ export function createRoom(name = 'basement') {
     name,
     setup: () => {
       // yields the new room's ID
-      return cy.task('makeRoom', name)
+      return cy.task('makeRoom', name).then((roomId) => {
+        cy.log(`Made room with ID ${roomId}`)
+      })
     },
     validate(id) {
       // yields undefined if the room was not found
@@ -35,6 +37,11 @@ export function createUser() {
           return cy
             .task('findUser', username)
             .its('_id')
+            .then((id) => {
+              cy.log(`Created user ${username} with ID ${id}`)
+              // do not return anything to allow the next callback
+              // to receive the user's ID
+            })
             .then((id) => {
               return { id, username, password }
             })
