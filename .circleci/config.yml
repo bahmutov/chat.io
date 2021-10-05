@@ -91,6 +91,7 @@ workflows:
           wait-on: 'http://localhost:3000'
           record: true
           # split all specs across 4 machines
+          # https://on.cypress.io/parallelization
           parallel: true
           parallelism: 4
           group: '2. All Circle Tests'
