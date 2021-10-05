@@ -35,21 +35,33 @@ workflows:
           # https://github.com/cypress-io/circleci-orb/blob/master/docs/executors.md
           executor: cypress/base-14
 
-      # this job runs on commits to the "main" branch
-      # https://circleci.com/docs/2.0/configuration-reference/#triggers
+      # run only the changed Cypress tests if any
       - cypress/run:
           name: Run all tests
-          filters:
-            branches:
-              only: main
           executor: with-services
           requires:
             - Install
           start: npm start
           wait-on: 'http://localhost:3000'
           record: true
-          # split all specs across 4 machines
-          parallel: true
-          parallelism: 4
-          group: Circle Tests
-          no-workspace: true
+          command: |
+            git diff --name-only origin/main
+
+      # this job runs on commits to the "main" branch
+      # https://circleci.com/docs/2.0/configuration-reference/#triggers
+      # - cypress/run:
+      #     name: Run all tests
+      #     filters:
+      #       branches:
+      #         only: main
+      #     executor: with-services
+      #     requires:
+      #       - Install
+      #     start: npm start
+      #     wait-on: 'http://localhost:3000'
+      #     record: true
+      #     # split all specs across 4 machines
+      #     parallel: true
+      #     parallelism: 4
+      #     group: '2. All Circle Tests'
+      #     no-workspace: true
