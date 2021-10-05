@@ -36,14 +36,24 @@ workflows:
           executor: cypress/base-14
 
       # run only the changed Cypress tests if any
+      # and only if we are running in a pull request
       - cypress/run:
-          name: Run all tests
+          name: Run changed Cypress tests
           executor: with-services
           requires:
             - Install
+          post-checkout:
+            - run:
+                name: Stop if not a pull request
+                command: |
+                  if [ -z "$CIRCLE_PULL_REQUEST" ]; then
+                    echo "Not a pull request, exiting..."
+                    circleci-agent step halt
+                  fi
           start: npm start
           wait-on: 'http://localhost:3000'
           record: true
+          no-workspace: true
           command: |
             git diff --name-only origin/main
 
