@@ -55,7 +55,8 @@ workflows:
                 # also stop if there are too many changed specs
                 command: |
                   git diff --name-only origin/main
-                  n=$(git diff --name-only origin/main | grep cypress/integration | wc -l | tr -d ' ')
+                  # make sure to NOT fail if there are no changed specs
+                  n=$(git diff --name-only origin/main | { grep cypress/integration || true; } | wc -l | tr -d ' ')
                   echo ""
                   echo "number of added or changed Cypress specs ${n}"
                   echo ""
