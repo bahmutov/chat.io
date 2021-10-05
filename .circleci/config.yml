@@ -50,6 +50,25 @@ workflows:
                     echo "Not a pull request, exiting..."
                     circleci-agent step halt
                   fi
+            - run:
+                name: Stop if no changed specs
+                # also stop if there are too many changed specs
+                command: |
+                  git diff --name-only origin/main
+                  n=$(git diff --name-only origin/main | grep cypress/integration | wc -l | tr -d ' ')
+                  echo ""
+                  echo "number of added or changed Cypress specs ${n}"
+                  echo ""
+                  if [ ${n} -lt 1 ]; then
+                    echo "No Cypress specs changed, exiting..."
+                    circleci-agent step halt
+                  fi
+
+                  if [ ${n} -gt 4 ]; then
+                    echo "Too many Cypress specs changed, will run them all in the next job..."
+                    circleci-agent step halt
+                  fi
+
           # to "trick" the Orb into NOT installing again
           # (the dependencies were installed in the Install job)
           # we use the dummy "install-command"
@@ -59,23 +78,11 @@ workflows:
           no-workspace: true
           command: |
             git diff --name-only origin/main
-            n=$(git diff --name-only origin/main | grep cypress/integration | wc -l | tr -d ' ')
             specs=$(git diff --name-only origin/main | grep cypress/integration | tr '\n' ',')
             echo ""
             echo "Changed and added Cypress specs"
             echo ${specs}
-            echo "number of added or changed Cypress specs ${n}"
             echo ""
-
-            if [ "$n" -lt 1 ]; then
-              echo "No Cypress specs changed, exiting..."
-              circleci-agent step halt
-            fi
-
-            if [ "$n" -gt 4 ]; then
-              echo "Too many Cypress specs changed, will run them all in the next job..."
-              circleci-agent step halt
-            fi
 
             # we have to form the Cypress run command ourselves
             npx cypress run --record --group "1. Changed specs" --spec ${specs}
