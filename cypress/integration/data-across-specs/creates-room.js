@@ -18,6 +18,8 @@ it('creates the room', () => {
 it('yields the room id', () => {
   createRoom().then((id) => {
     expect(id, 'room id').to.be.a('string')
-    cy.task('getRoom', id).should('have.property', 'title', 'basement')
+    cy.task('getRoom', id)
+      // confirm the room's name
+      .should('have.property', 'title', 'basement')
   })
 })
