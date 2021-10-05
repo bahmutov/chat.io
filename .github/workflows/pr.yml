@@ -2,6 +2,8 @@ name: pr
 # on pull request, determine changed or added Cypress specs
 # if there are any (but not too many), run them first
 # then run all Cypress specs
+# read the blog post
+# https://glebbahmutov.com/blog/faster-ci-feedback/
 on: [pull_request]
 jobs:
   test-changed-specs:

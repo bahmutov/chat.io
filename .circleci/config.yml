@@ -1,3 +1,6 @@
+# This CircleCI configuration was described in the blog post
+# Get Faster Feedback From Your Cypress Tests Running On CircleCI
+# https://glebbahmutov.com/blog/faster-ci-feedback-on-circleci/
 version: 2.1
 orbs:
   # https://github.com/cypress-io/circleci-orb
