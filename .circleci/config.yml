@@ -80,13 +80,8 @@ workflows:
             # we have to form the Cypress run command ourselves
             npx cypress run --record --group "1. Changed specs" --spec ${specs}
 
-      this job runs on commits to the "main" branch
-      https://circleci.com/docs/2.0/configuration-reference/#triggers
       - cypress/run:
           name: Run all tests
-          filters:
-            branches:
-              only: main
           executor: with-services
           # only run all the tests if the changed (if any) specs passed
           requires:
