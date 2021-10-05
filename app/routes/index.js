@@ -71,6 +71,7 @@ router.post('/register', function (req, res, next) {
   // console.log(credentials)
 
   if (credentials.username === '' || credentials.password === '') {
+    console.error('Missing credentials')
     req.flash('error', 'Missing credentials')
     req.flash('showRegisterForm', true)
     res.redirect('/')
@@ -79,12 +80,14 @@ router.post('/register', function (req, res, next) {
 
   User.registerUser(credentials).then((errorMessageMaybe) => {
     if (typeof errorMessageMaybe === 'string') {
+      console.error(errorMessageMaybe)
       req.flash('error', errorMessageMaybe)
       req.flash('showRegisterForm', true)
       res.redirect('/')
       return
     }
 
+    console.error('Successful registration')
     req.flash('success', 'Your account has been created. Please log in.')
     res.redirect('/')
   })
@@ -105,11 +108,18 @@ router.get('/rooms', [
 router.get('/chat/:id', [
   User.isAuthenticated,
   function (req, res, next) {
-    var roomId = req.params.id
+    console.log('request params', req.params)
+    const roomId = req.params.id
     Room.findById(roomId, function (err, room) {
-      if (err) throw err
+      if (err) {
+        console.error('Error finding the room: %s', roomId)
+        req.flash('error', 'Error finding the room')
+        return res.redirect('/rooms')
+      }
       if (!room) {
-        return next()
+        console.error('Could not find the room: %s', roomId)
+        req.flash('error', 'Could not find the room')
+        return res.redirect('/rooms')
       }
       res.render('chatroom', { user: req.user, room: room })
     })

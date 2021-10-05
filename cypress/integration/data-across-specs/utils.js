@@ -1,3 +1,4 @@
+// @ts-check
 /// <reference types="cypress-data-session" />
 
 export function createRoom(name = 'basement') {
@@ -17,11 +18,10 @@ export function createRoom(name = 'basement') {
   })
 }
 
-export function createUser() {
+export function createUser(username = 'Joe') {
   return cy.dataSession({
-    name: 'Joe',
+    name: `user ${username}`,
     setup() {
-      const username = 'Joe'
       const password = 'password!'
       return cy
         .request({
@@ -48,9 +48,13 @@ export function createUser() {
         })
     },
     validate(user) {
-      console.log('validating', user)
+      cy.log(`validating user with ID ${user.id}`)
       return cy.task('findUser', user.username).then((found) => {
-        return found && found._id === user.id
+        return (
+          found &&
+          // @ts-ignore
+          found._id === user.id
+        )
       })
     },
     shareAcrossSpecs: true,
