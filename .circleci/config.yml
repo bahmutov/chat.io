@@ -13,7 +13,7 @@ executors:
     docker:
       # image used to install source code,
       # run our server and run Cypress tests
-      - image: cypress/base:14.16.0
+      - image: cypress/base:14.17.3
         environment:
           # for connecting to the Mongo and Redis services
           MONGODB: mongodb://root:rootPass1234@localhost:27017/
