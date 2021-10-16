@@ -41,7 +41,7 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "cypress": "8.5.0",
+    "cypress": "8.6.0",
     "cypress-data-session": "1.10.0",
     "cypress-watch-and-reload": "1.5.4",
     "nodemon": "^2.0.12",
