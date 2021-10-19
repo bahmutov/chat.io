@@ -57,9 +57,8 @@ workflows:
                 name: Stop if no changed specs
                 # also stop if there are too many changed specs
                 command: |
-                  git diff --name-only origin/main
                   # make sure to NOT fail if there are no changed specs
-                  n=$(git diff --name-only origin/main | { grep cypress/integration || true; } | wc -l | tr -d ' ')
+                  n=$(git diff --name-only --diff-filter=AM origin/main | { grep cypress/integration || true; } | wc -l | tr -d ' ')
                   echo ""
                   echo "number of added or changed Cypress specs ${n}"
                   echo ""
@@ -81,10 +80,9 @@ workflows:
           wait-on: 'http://localhost:3000'
           no-workspace: true
           command: |
-            git diff --name-only origin/main
             # by now we know there are changed Cypress specs
             # so we know grep command will not fail
-            specs=$(git diff --name-only origin/main | grep cypress/integration | tr '\n' ',')
+            specs=$(git diff --name-only --diff-filter=AM origin/main | grep cypress/integration | tr '\n' ',')
             echo ""
             echo "Changed and added Cypress specs"
             echo ${specs}
