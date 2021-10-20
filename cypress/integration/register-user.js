@@ -151,7 +151,22 @@ it('registers user using data session 4', () => {
   cy.location('pathname').should('equal', '/rooms')
 })
 
-it.only('registers user using data session', () => {
+export const loginViaApi = (username, password) => {
+  cy.log(`log in user **${username}**`)
+  cy.request({
+    method: 'POST',
+    url: '/login',
+    form: true,
+    body: {
+      username,
+      password,
+    },
+  })
+  // after cy.request, the cookie should exist in the browser
+  return cy.getCookie('connect.sid')
+}
+
+it('register and log in using cy.request', () => {
   const username = 'Test'
   const password = 'MySecreT'
 
@@ -175,9 +190,91 @@ it.only('registers user using data session', () => {
       expect(this.user).to.have.keys('id', 'username', 'password')
     })
 
-  loginUser(username, password)
+  loginViaApi(username, password)
 
-  // if the user has been created and could log in
-  // we should be redirected to the home page with the rooms
+  // if the user is logged in correctly,
+  // the session cookie is set, and when we visit the page
+  // we are automatically redirected to the list of chat rooms
+  cy.visit('/')
+  cy.location('pathname').should('equal', '/rooms')
+})
+
+it('register and log in using data sessions', () => {
+  const username = 'Test'
+  const password = 'MySecreT'
+
+  cy.dataSession({
+    name: 'user',
+    setup() {
+      cy.task('makeUser', { username, password }).then((id) => {
+        return { id, username, password }
+      })
+    },
+    validate({ id }) {
+      return cy.task('getUser', id).then(Boolean)
+    },
+  })
+
+  cy.dataSession({
+    name: 'logged in user',
+    setup() {
+      // yields the connect.sid cookie
+      return loginViaApi(username, password)
+    },
+    // any non-null cookie value is valid
+    validate: true,
+    // if we have the previous valid cookie
+    // set it in the browser before any cy.visit
+    recreate(cookie) {
+      cy.setCookie('connect.sid', cookie.value)
+    },
+  })
+
+  // if the user is logged in correctly,
+  // the session cookie is set, and when we visit the page
+  // we are automatically redirected to the list of chat rooms
+  cy.visit('/')
+  cy.location('pathname').should('equal', '/rooms')
+})
+
+it.only('clear session', () => {
+  const username = 'Test'
+  const password = 'MySecreT'
+
+  cy.dataSession({
+    name: 'user',
+    preSetup() {
+      return cy.task('clearUsers')
+    },
+    setup() {
+      cy.task('makeUser', { username, password }).then((id) => {
+        return { id, username, password }
+      })
+    },
+    validate({ id }) {
+      return cy.task('getUser', id).then(Boolean)
+    },
+  })
+
+  cy.dataSession({
+    name: 'logged in user',
+    dependsOn: ['user'],
+    setup() {
+      // yields the connect.sid cookie
+      return loginViaApi(username, password)
+    },
+    // any non-null cookie value is valid
+    validate: true,
+    // if we have the previous valid cookie
+    // set it in the browser before any cy.visit
+    recreate(cookie) {
+      cy.setCookie('connect.sid', cookie.value)
+    },
+  })
+
+  // if the user is logged in correctly,
+  // the session cookie is set, and when we visit the page
+  // we are automatically redirected to the list of chat rooms
+  cy.visit('/')
   cy.location('pathname').should('equal', '/rooms')
 })
