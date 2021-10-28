@@ -7,6 +7,25 @@ describe('messages', () => {
     cy.task('clearRooms')
   })
 
+  // example script to inject CSS to highlight all elements with data-cy attribute
+  // so we can see which parts of the page have easy to find elements
+  // https://on.cypress.io/best-practices#Selecting-Elements
+  beforeEach(() => {
+    cy.intercept('GET', '/css/style.css', (req) => {
+      // prevent the server from responding with 304 "not modified"
+      delete req.headers['if-modified-since']
+      delete req.headers['if-none-match']
+      req.continue((res) => {
+        res.body += `
+          [data-cy] {
+            border: 2px solid red !important;
+            margin: -2px;
+          }
+        `
+      })
+    }).as('style')
+  })
+
   it('can be posted', () => {
     cy.session('Joe', () => {
       cy.task('clearUsers')
