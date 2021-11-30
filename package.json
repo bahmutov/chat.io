@@ -10,7 +10,8 @@
     "watch": "nodemon server.js",
     "cy:open": "cypress open",
     "dev": "start-test 3000 cy:open",
-    "ci": "start-test 3000"
+    "ci": "start-test 3000",
+    "stop-only": "stop-only --folder cypress/integration"
   },
   "repository": {
     "url": "git+https://github.com/OmarElGabry/chat.io.git",
@@ -47,7 +48,8 @@
     "nodemon": "^2.0.12",
     "prettier": "^2.4.1",
     "socket.io-client": "^2",
-    "start-server-and-test": "^1.14.0"
+    "start-server-and-test": "^1.14.0",
+    "stop-only": "^3.1.2"
   },
   "nodemonConfig": {
     "watch": [

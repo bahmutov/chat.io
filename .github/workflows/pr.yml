@@ -45,6 +45,7 @@ jobs:
       - name: Install dependencies 📦
         uses: cypress-io/github-action@v2
         with:
+          build: npm run stop-only
           # just perform install
           runTests: false
 
