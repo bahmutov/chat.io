@@ -66,7 +66,9 @@ async function makeRoom(title) {
 }
 
 async function makeUser(credentials) {
-  console.log('makeUser', credentials?.username)
+  const username = credentials ? credentials.username : undefined
+  console.log('makeUser', username)
+
   const errorMessageOrUser = await registerUser(credentials)
   if (typeof errorMessageOrUser === 'string') {
     throw new Error(errorMessageOrUser)
