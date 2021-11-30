@@ -74,7 +74,7 @@ it.skip('registers user 2', () => {
   cy.location('pathname').should('equal', '/rooms')
 })
 
-it('registers user using data session 1', () => {
+it.skip('registers user using data session 1', () => {
   const username = 'Test'
   const password = 'MySecreT'
 
@@ -91,7 +91,7 @@ it('registers user using data session 1', () => {
   cy.location('pathname').should('equal', '/rooms')
 })
 
-it('registers user using data session 2', () => {
+it.skip('registers user using data session 2', () => {
   const username = 'Test'
   const password = 'MySecreT'
 
@@ -111,7 +111,7 @@ it('registers user using data session 2', () => {
   cy.location('pathname').should('equal', '/rooms')
 })
 
-it('registers user using data session 3', () => {
+it.skip('registers user using data session 3', () => {
   const username = 'Test'
   const password = 'MySecreT'
 
@@ -131,7 +131,7 @@ it('registers user using data session 3', () => {
   cy.location('pathname').should('equal', '/rooms')
 })
 
-it('registers user using data session 4', () => {
+it.skip('registers user using data session 4', () => {
   const username = 'Test'
   const password = 'MySecreT'
 
@@ -237,7 +237,7 @@ it('register and log in using data sessions', () => {
   cy.location('pathname').should('equal', '/rooms')
 })
 
-it.only('clear session', () => {
+it('clear session', () => {
   const username = 'Test'
   const password = 'MySecreT'
 
