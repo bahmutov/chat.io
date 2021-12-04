@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "cypress": "9.1.1",
-    "cypress-data-session": "1.13.2",
+    "cypress-data-session": "1.13.3",
     "cypress-watch-and-reload": "1.5.5",
     "nodemon": "^2.0.12",
     "prettier": "^2.4.1",
