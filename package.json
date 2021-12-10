@@ -10,6 +10,7 @@
     "watch": "nodemon server.js",
     "cy:open": "cypress open",
     "dev": "start-test 3000 cy:open",
+    "dev:watch": "start-test watch 3000 cy:open",
     "ci": "start-test 3000",
     "stop-only": "stop-only --folder cypress/integration"
   },

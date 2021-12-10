@@ -55,7 +55,11 @@ router.post('/login', function (req, res, next) {
         console.error(err)
         return next(err)
       }
-      return res.redirect('/rooms')
+
+      // add a synthetic delay to simulate a slow connection
+      setTimeout(function () {
+        res.redirect('/rooms')
+      }, 1000)
     })
   })(req, res, next)
 })
@@ -87,9 +91,12 @@ router.post('/register', function (req, res, next) {
       return
     }
 
-    console.error('Successful registration')
-    req.flash('success', 'Your account has been created. Please log in.')
-    res.redirect('/')
+    // add a synthetic delay to simulate a slow connection
+    setTimeout(function () {
+      console.error('Successful registration')
+      req.flash('success', 'Your account has been created. Please log in.')
+      res.redirect('/')
+    }, 1000)
   })
 })
 

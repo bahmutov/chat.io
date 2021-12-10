@@ -67,5 +67,6 @@ it('registers user', () => {
     dependsOn: ['user'],
   })
 
+  // check if the user is logged in successfully
   cy.location('pathname').should('equal', '/rooms')
 })

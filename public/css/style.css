@@ -333,6 +333,10 @@ button:active,
 button:focus {
   background: #89c771;
 }
+button:disabled {
+  background: #dddddd;
+}
+
 a.rooms-btn:hover,
 a.rooms-btn:active,
 a.rooms-btn:focus {

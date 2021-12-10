@@ -12,7 +12,10 @@ function registerUser(username, password) {
         .should('have.value', username)
       cy.get('[placeholder=password]').type(password)
 
-      cy.contains('button', 'create').click()
+      cy.contains('button', 'create')
+        .click()
+        // the app disables the button while submitting the form
+        .should('be.disabled')
     })
   // if everything goes well
   cy.contains('.success', 'Your account has been created').should('be.visible')
@@ -41,11 +44,14 @@ function loginUser(username, password) {
         .should('have.value', username)
       cy.get('[placeholder=password]').type(password)
 
-      cy.contains('button', 'login').click()
+      cy.contains('button', 'login')
+        .click()
+        // the app disables the button while submitting the form
+        .should('be.disabled')
     })
 }
 
-it.skip('registers user 1', () => {
+it('registers user 1', () => {
   const username = 'Test'
   const password = 'MySecreT'
 
@@ -56,6 +62,8 @@ it.skip('registers user 1', () => {
   // if the user has been created and could log in
   // we should be redirected to the home page with the rooms
   cy.location('pathname').should('equal', '/rooms')
+  // let other tests run in a clean environment
+  cy.task('clearUsers')
 })
 
 it.skip('registers user 2', () => {
