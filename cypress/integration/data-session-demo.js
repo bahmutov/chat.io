@@ -39,7 +39,7 @@ function loginUser(username, password) {
 
 // if you need to clear the users from the browser's DevTools run:
 // cy.now('task', 'clearUsers')
-it('registers user', () => {
+it('registers user', { tags: '@demo' }, () => {
   const username = 'Test'
   const password = 'MySecreT'
 
