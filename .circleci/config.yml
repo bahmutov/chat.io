@@ -55,8 +55,18 @@ workflows:
         - << pipeline.parameters.GREP >>
         - << pipeline.parameters.GREP_TAGS >>
     jobs:
+      # every testing job needs to install dependencies and Cypress
+      - cypress/install:
+          name: Install
+          # to install dependencies, we do not need other services
+          # so let's use the executor close to what the tests will use
+          # https://github.com/cypress-io/circleci-orb/blob/master/docs/executors.md
+          executor: cypress/base-14
+
       - cypress/run:
           name: Filtered E2E tests
+          requires:
+            - Install
           no-workspace: true
           executor: with-services
           start: npm start
