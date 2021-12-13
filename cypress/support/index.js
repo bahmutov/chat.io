@@ -3,7 +3,11 @@
 // https://github.com/bahmutov/cypress-watch-and-reload
 require('cypress-watch-and-reload/support')
 
+// https://github.com/bahmutov/cypress-data-session
 require('cypress-data-session')
+
+// https://github.com/cypress-io/cypress-grep
+require('cypress-grep')()
 
 // add 1 second pause after each test
 // to make sure the CI video has a chance to finish

@@ -101,6 +101,9 @@ module.exports = (on, config) => {
   // https://github.com/bahmutov/cypress-data-session
   require('cypress-data-session/src/plugin')(on, config)
 
+  // https://github.com/cypress-io/cypress-grep
+  require('cypress-grep/src/plugin')(config)
+
   on('task', {
     // queries
     getUsers,
@@ -115,4 +118,6 @@ module.exports = (on, config) => {
     clearRooms,
     deleteUser,
   })
+
+  return config
 }
