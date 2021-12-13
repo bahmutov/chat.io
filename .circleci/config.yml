@@ -6,6 +6,19 @@ orbs:
   # https://github.com/cypress-io/circleci-orb
   cypress: cypress-io/cypress@1.29.0
 
+# if we want to run only some tests on CircleCI, we can call the workflow
+# with parameters, as described in https://glebbahmutov.com/blog/burn-tests-on-circle/
+parameters:
+  # allow running selected tests once or multiple times
+  # using the cypress-grep plugin
+  # https://github.com/cypress-io/cypress-grep
+  GREP:
+    type: string
+    default: ''
+  BURN:
+    type: integer
+    default: 1
+
 executors:
   with-services:
     # to run MongoDB and Redis on CircleCI, follow the instructions
@@ -28,7 +41,24 @@ executors:
       - image: redis:alpine
 
 workflows:
+  some-tests:
+    # runs the Web tests when the user supplies a grep pattern
+    when: << pipeline.parameters.GREP >>
+    jobs:
+      - cypress/run:
+          name: Filtered E2E tests
+          no-workspace: true
+          executor: with-services
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          record: true
+          group: 'Test grep: << pipeline.parameters.GREP >>'
+          tags: << pipeline.parameters.GREP >>
+          env: 'grep="<< pipeline.parameters.GREP >>",grepBurn=<< pipeline.parameters.BURN >>'
+
   build:
+    # do not run all tests if the user is only interested in some of them
+    unless: << pipeline.parameters.GREP >>
     jobs:
       # every testing job needs to install dependencies and Cypress
       - cypress/install:
