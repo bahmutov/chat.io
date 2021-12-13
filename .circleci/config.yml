@@ -15,6 +15,9 @@ parameters:
   GREP:
     type: string
     default: ''
+  GREP_TAGS:
+    type: string
+    default: ''
   BURN:
     type: integer
     default: 1
@@ -43,7 +46,10 @@ executors:
 workflows:
   some-tests:
     # runs the Web tests when the user supplies a grep pattern
-    when: << pipeline.parameters.GREP >>
+    when:
+      or:
+        - << pipeline.parameters.GREP >>
+        - << pipeline.parameters.GREP_TAGS >>
     jobs:
       - cypress/run:
           name: Filtered E2E tests
@@ -54,11 +60,14 @@ workflows:
           record: true
           group: 'Test grep: << pipeline.parameters.GREP >>'
           tags: << pipeline.parameters.GREP >>
-          env: 'grep="<< pipeline.parameters.GREP >>",grepBurn=<< pipeline.parameters.BURN >>'
+          env: 'grep="<< pipeline.parameters.GREP >>",grepTags=<< pipeline.parameters.GREP_TAGS >>,grepBurn=<< pipeline.parameters.BURN >>'
 
   build:
     # do not run all tests if the user is only interested in some of them
-    unless: << pipeline.parameters.GREP >>
+    unless:
+      or:
+        - << pipeline.parameters.GREP >>
+        - << pipeline.parameters.GREP_TAGS >>
     jobs:
       # every testing job needs to install dependencies and Cypress
       - cypress/install:
