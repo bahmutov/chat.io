@@ -21,6 +21,10 @@ parameters:
   BURN:
     type: integer
     default: 1
+  # https://glebbahmutov.com/blog/parallelism-parameter/
+  MACHINES:
+    type: integer
+    default: 1
 
 executors:
   with-services:
@@ -58,6 +62,12 @@ workflows:
           start: npm start
           wait-on: 'http://localhost:3000'
           record: true
+          # since we might pass the MACHINES parameter,
+          # let's always run the tests in parallel mode
+          # Even if there is a single machine, all tests will run
+          # from the longest to the shortest duration
+          parallel: true
+          parallelism: << pipeline.parameters.MACHINES >>
           group: 'Test grep: << pipeline.parameters.GREP >>'
           tags: << pipeline.parameters.GREP >>
           env: 'grep="<< pipeline.parameters.GREP >>",grepTags=<< pipeline.parameters.GREP_TAGS >>,grepBurn=<< pipeline.parameters.BURN >>'
