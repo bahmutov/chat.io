@@ -25,6 +25,10 @@ parameters:
   MACHINES:
     type: integer
     default: 1
+  # message to print to the terminal if any
+  MESSAGE:
+    type: string
+    default: ''
 
 executors:
   with-services:
@@ -69,6 +73,7 @@ workflows:
             - Install
           no-workspace: true
           executor: with-services
+          build: echo "Hello << pipeline.parameters.MESSAGE >>"
           start: npm start
           wait-on: 'http://localhost:3000'
           record: true
