@@ -22,6 +22,13 @@
 - TODO: using `cy.task` to create a new room
 - TODO: using spec events to clear the rooms and the users
 
+## Blog posts
+
+- [Get Faster Feedback From Your Cypress Tests Running On GitHub Actions](https://glebbahmutov.com/blog/faster-ci-feedback/)
+- [Get Faster Feedback From Your Cypress Tests Running On CircleCI](https://glebbahmutov.com/blog/faster-ci-feedback-on-circleci/)
+- [Flexible Cypress Data Setup And Validation](https://glebbahmutov.com/blog/cypresss-data-session/)
+- [Dealing With 3rd Party Scripts In Cypress Tests](https://glebbahmutov.com/blog/3rd-party/)
+
 ## Installation
 
 ```shell
