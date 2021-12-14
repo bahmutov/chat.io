@@ -162,7 +162,7 @@ workflows:
             fi
 
             # we have to form the Cypress run command ourselves
-            # npx cypress run --record --group "1. Changed specs" --spec ${specs}
+            npx cypress run --record --group "1. Changed specs" --spec ${specs}
 
       - cypress/run:
           name: Run all tests
