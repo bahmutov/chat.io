@@ -49,6 +49,7 @@
     "cypress-watch-and-reload": "1.5.5",
     "nodemon": "^2.0.12",
     "prettier": "^2.4.1",
+    "run-cy-on-ci": "^1.8.0",
     "socket.io-client": "^2",
     "start-server-and-test": "^1.14.0",
     "stop-only": "^3.1.2"
