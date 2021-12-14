@@ -147,11 +147,10 @@ workflows:
           wait-on: 'http://localhost:3000'
           no-workspace: true
           command: |
-            # by now we know there are changed Cypress specs
-            # so we know grep command will not fail
+            # be careful about counting the lines
             specsLines=$(git diff --name-only --diff-filter=AMR origin/main | { grep cypress/integration || true; })
-            n=$(echo $specsLines | wc -l | tr -d ' ')
-            specs=$(echo $specsLines | tr '\n' ',')
+            n=$(echo $specsLines | sed '/^\s*$/d' | wc -l | tr -d ' ')
+            specs=$(echo $specsLines | sed '/^\s*$/d' | tr '\n' ',')
             echo ""
             echo "Changed and added ${n} Cypress specs"
             echo ${specs}
