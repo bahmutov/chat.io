@@ -158,7 +158,7 @@ workflows:
 
             if [ ${n} -lt 1 ]; then
               echo "No Cypress specs changed, exiting..."
-              circleci-agent step halt
+              exit 0
             fi
 
             # we have to form the Cypress run command ourselves
