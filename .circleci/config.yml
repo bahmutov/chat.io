@@ -66,6 +66,7 @@ workflows:
           # so let's use the executor close to what the tests will use
           # https://github.com/cypress-io/circleci-orb/blob/master/docs/executors.md
           executor: cypress/base-14
+          build: echo "Hello << pipeline.parameters.MESSAGE >>"
 
       - cypress/run:
           name: Filtered E2E tests
@@ -73,7 +74,6 @@ workflows:
             - Install
           no-workspace: true
           executor: with-services
-          build: echo "Hello << pipeline.parameters.MESSAGE >>"
           start: npm start
           wait-on: 'http://localhost:3000'
           record: true
