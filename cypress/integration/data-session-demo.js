@@ -227,7 +227,7 @@ it.skip('validates the user', () => {
   cy.location('pathname').should('equal', '/rooms')
 })
 
-it.only('validates the user and the session cookie', { tags: '@demo' }, () => {
+it('validates the user and the session cookie', { tags: '@demo' }, () => {
   const username = 'Test'
   const password = 'MySecreT'
 
@@ -253,6 +253,10 @@ it.only('validates the user and the session cookie', { tags: '@demo' }, () => {
       cy.getCookie('connect.sid')
     },
     validate(cookie) {
+      // try making a request with the cookie value
+      // to a protected route. If it is successful
+      // we are good to go. If we get a redirect
+      // to login instead, we know the cookie is invalid
       cy.request({
         url: '/rooms',
         failOnStatusCode: false,
