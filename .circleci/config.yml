@@ -21,6 +21,10 @@ parameters:
   BURN:
     type: integer
     default: 1
+  # optional spec pattern to pass via "--spec <pattern>"
+  SPEC:
+    type: string
+    default: ''
   # https://glebbahmutov.com/blog/parallelism-parameter/
   MACHINES:
     type: integer
@@ -58,6 +62,7 @@ workflows:
       or:
         - << pipeline.parameters.GREP >>
         - << pipeline.parameters.GREP_TAGS >>
+        - << pipeline.parameters.SPEC >>
     jobs:
       # every testing job needs to install dependencies and Cypress
       - cypress/install:
@@ -85,6 +90,7 @@ workflows:
           parallelism: << pipeline.parameters.MACHINES >>
           group: 'Test grep: << pipeline.parameters.GREP >>'
           tags: << pipeline.parameters.GREP >>
+          spec: << pipeline.parameters.SPEC >>
           env: 'grep="<< pipeline.parameters.GREP >>",grepTags=<< pipeline.parameters.GREP_TAGS >>,grepBurn=<< pipeline.parameters.BURN >>'
 
   build:
@@ -93,6 +99,7 @@ workflows:
       or:
         - << pipeline.parameters.GREP >>
         - << pipeline.parameters.GREP_TAGS >>
+        - << pipeline.parameters.SPEC >>
     jobs:
       # every testing job needs to install dependencies and Cypress
       - cypress/install:
