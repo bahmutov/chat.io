@@ -46,6 +46,14 @@ async function getRoom(id) {
   return database.models.room.findOne({ _id: id })
 }
 
+async function findRoom(title) {
+  console.log('find room', title)
+  if (typeof title !== 'string') {
+    throw new Error('title must be a string')
+  }
+  return database.models.room.findOne({ title })
+}
+
 async function findUser(username) {
   console.log('find user', username)
   if (typeof username !== 'string') {
@@ -110,6 +118,7 @@ module.exports = (on, config) => {
     getRooms,
     getRoom,
     findUser,
+    findRoom,
     getUser,
     // mutations
     makeRoom,
