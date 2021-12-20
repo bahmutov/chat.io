@@ -77,19 +77,63 @@ jobs:
           # Cypress connects to MongoDB in some tests
           MONGODB: mongodb://root:rootPass1234@localhost:27017/
 
-      # if the changed / added Cypress tests passed
-      # run all Cypress tests to confirm the app is working
-      # TODO: run several machines in parallel
-      - name: All Cypress tests 🧪
+  test-http:
+    needs: [test-changed-specs]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out code 🛎
+        uses: actions/checkout@v2
+
+      # run utility services in the background
+      # using docker-compose (see docker-compose.yml file)
+      - name: Run docker-compose
+        run: docker-compose up -d
+
+      # https://github.com/cypress-io/github-action
+      - name: Cypress tests 🧪
         uses: cypress-io/github-action@v2
         with:
-          # we have already installed all dependencies above
-          install: false
+          build: npm run stop-only
+          start: npm start
           wait-on: 'http://localhost:3000'
           record: true
-          group: '2. All Cypress tests'
+          group: '2: All GH Tests (HTTP)'
         env:
           # for recording test results and videos to Cypress Dashboard
           CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
-          # Cypress connects to MongoDB in some tests
+          # for connecting to the Mongo and Redis services
+          # see docker-compose.yml file
+          SESSION_SECRET: SoMeSeCrEtStrInG
+          MONGODB: mongodb://root:rootPass1234@localhost:27017/
+
+  test-https:
+    needs: [test-changed-specs]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out code 🛎
+        uses: actions/checkout@v2
+
+      # run utility services in the background
+      # using docker-compose (see docker-compose.yml file)
+      - name: Run docker-compose
+        run: docker-compose up -d
+        env:
+          HTTPS: true
+
+      # https://github.com/cypress-io/github-action
+      - name: Cypress tests 🧪
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run stop-only
+          start: npm start
+          # do not wait - let Cypress wait for HTTPS
+          record: true
+          group: '3: All GH Tests (HTTPS)'
+        env:
+          HTTPS: true
+          # for recording test results and videos to Cypress Dashboard
+          CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
+          # for connecting to the Mongo and Redis services
+          # see docker-compose.yml file
+          SESSION_SECRET: SoMeSeCrEtStrInG
           MONGODB: mongodb://root:rootPass1234@localhost:27017/

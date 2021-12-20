@@ -96,6 +96,7 @@ async function getUsers() {
     return {
       username: doc.username,
       password: doc.password,
+      id: doc._id,
     }
   })
   console.table(users)
@@ -128,5 +129,14 @@ module.exports = (on, config) => {
     deleteUser,
   })
 
+  if (process.env.HTTPS === 'true') {
+    console.log('HTTPS is enabled')
+    config.baseUrl = 'https://my-chat.io:3000'
+    config.hosts = {
+      'my-chat.io': '127.0.0.1',
+    }
+  }
+
+  // return the changed config to make sure the settings are applied
   return config
 }

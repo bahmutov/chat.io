@@ -7,7 +7,14 @@ import { loginViaApi } from '../utils'
 it('sees rooms attic and bedroom', () => {
   createRoom('attic')
   createRoom('bedroom')
-  createUser().wait(1000).then(loginViaApi)
+  createUser()
+    .wait(1000)
+    .then((user) => {
+      cy.task('getUsers')
+      // return the created user
+      cy.wrap(user)
+    })
+    .then(loginViaApi)
   cy.visit('/rooms')
   cy.get('[data-cy=room]')
     // there might be other rooms there

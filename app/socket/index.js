@@ -1,5 +1,6 @@
 'use strict'
 
+const fs = require('fs')
 var config = require('../config')
 var redis = require('redis').createClient
 var adapter = require('socket.io-redis')
@@ -174,7 +175,19 @@ var ioEvents = function (io) {
  *
  */
 var init = function (app) {
-  var server = require('http').Server(app)
+  const isHttps = process.env.HTTPS === 'true'
+  let server
+  if (isHttps) {
+    const options = {
+      // from the working directory
+      key: fs.readFileSync('./.cert/key.pem'),
+      cert: fs.readFileSync('./.cert/cert.pem'),
+    }
+    console.log('HTTPS enabled')
+    server = require('https').createServer(options, app)
+  } else {
+    server = require('http').Server(app)
+  }
   var io = require('socket.io')(server)
 
   // Force Socket.io to ONLY use "websockets"; No Long Polling.
