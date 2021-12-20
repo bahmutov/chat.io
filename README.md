@@ -119,6 +119,10 @@ The Cypress tests automatically re-run when the spec files change. They also re-
 
 All props for this Chat app goes to the original repo [OmarElGabry/chat.io](https://github.com/OmarElGabry/chat.io). I have only cloned to show it being tested, added more features, added Cypress tests
 
+## Custom domain
+
+By setting the "hosts" object in the `cypress.json` we can map custom domains back to the local machine and use them from Cypress tests. For example, the spec file [my-chat-domain.js](./cypress/integration/my-chat-domain.js) visits the `http://my-chat.io:3000` which is mapped back to the `127.0.0.1:3000` inside the [cypress.json](./cypress.json) file.
+
 ## HTTPS
 
 To create a local self-signed certificate on Mac I used the following commands (see [Cypress Hosts Option](https://glebbahmutov.com/blog/cypress-hosts-option/) and [bahmutov/cypress-local-https](https://github.com/bahmutov/cypress-local-https))
