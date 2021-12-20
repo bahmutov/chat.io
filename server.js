@@ -6,16 +6,18 @@ var app = express()
 var path = require('path')
 var bodyParser = require('body-parser')
 var flash = require('connect-flash')
+const http = require('http')
 
 // Chat application components
 var routes = require('./app/routes')
 var session = require('./app/session')
 var passport = require('./app/auth')
-var ioServer = require('./app/socket')(app)
 var logger = require('./app/logger')
 
 // Set the port number
-var port = process.env.PORT || 3000
+const port = parseInt(process.env.PORT) || 3000
+
+var ioServer = require('./app/socket')(app, port)
 
 // View engine setup
 app.set('views', path.join(__dirname, 'app/views'))
@@ -30,6 +32,22 @@ app.use(session)
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
+
+if (process.env.HTTPS === 'true') {
+  const red = express()
+  red.use('*', (req, res, next) => {
+    console.log('%s %s', req.protocol, req.originalUrl)
+    if (req.protocol !== 'https') {
+      return res.redirect('https://localhost:' + port + req.originalUrl)
+    }
+    next()
+  })
+
+  const redServer = http.createServer(red)
+  redServer.listen(port + 1, () => {
+    console.log('redirect port', port + 1)
+  })
+}
 
 app.use('/', routes)
 

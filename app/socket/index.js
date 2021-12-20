@@ -185,6 +185,13 @@ var init = function (app) {
     }
     console.log('HTTPS enabled')
     server = require('https').createServer(options, app)
+
+    // const redirecter = express()
+    // redirector.all('*', (req, res) => {
+    //   res.redirect('https://' + req.headers.host + req.url)
+    // })
+    // const redirectServer = require('http').Server(redirecter)
+    // redirectServer.listen(port)
   } else {
     server = require('http').Server(app)
   }
