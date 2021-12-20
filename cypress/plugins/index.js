@@ -96,6 +96,7 @@ async function getUsers() {
     return {
       username: doc.username,
       password: doc.password,
+      id: doc._id,
     }
   })
   console.table(users)
