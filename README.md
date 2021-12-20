@@ -149,6 +149,16 @@ In this case, the base URL should point at `https://my-chat.io` with additional 
 
 Currently, the [plugin file](./cypress/plugins/index.js) changes the base URL and sets the "hosts" object automatically when you launch Cypress with `HTTPS=true` environment variable.
 
+For example, I use the following commands to test HTTPS and the custom domain
+
+```
+$ HTTPS=true as-a . npm start
+# from another terminal open Cypress
+$ HTTPS=true as-a . npx cypress open
+# or using a single command via start-server-and-test
+$ HTTPS=true as-a . npm run dev
+```
+
 ## Continuous Integration
 
 The tests run automatically on pull requests, and the changed specs run first, read the blog post [Get Faster Feedback From Your Cypress Tests Running On GitHub Actions](https://glebbahmutov.com/blog/faster-ci-feedback/). The tests run on GitHub Actions, see the workflows in [.github/workflows](./.github/workflows) folder. Similarly, the E2E changed tests run first on CircleCI, and if they pass, then all tests run with [parallelization](https://on.cypress.io/parallelization), see [.circleci/config.yml](./.circleci/config.yml) file and read [Get Faster Feedback From Your Cypress Tests Running On CircleCI](https://glebbahmutov.com/blog/faster-ci-feedback-on-circleci/)
