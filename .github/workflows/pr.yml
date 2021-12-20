@@ -21,13 +21,13 @@ jobs:
         # should we get the branch names from the PR?
         # be careful! if there are lots of changed files
         # this will paginate the results and will run into troubles
-        run: git diff --name-only --diff-filter=AM origin/main
+        run: git diff --name-only --diff-filter=AMR origin/main
 
       - name: List changed specs ✨
         id: list-changed-specs
         run: |
-          n=$(git diff --name-only --diff-filter=AM origin/main | grep cypress/integration | wc -l | tr -d ' ')
-          specs=$(git diff --name-only --diff-filter=AM origin/main | grep cypress/integration | tr '\n' ',')
+          n=$(git diff --name-only --diff-filter=AMR origin/main | grep cypress/integration | wc -l | tr -d ' ')
+          specs=$(git diff --name-only --diff-filter=AMR origin/main | grep cypress/integration | tr '\n' ',')
           echo "Changed and added Cypress specs"
           echo ${specs}
           echo "number of added or changed Cypress specs ${n}"
