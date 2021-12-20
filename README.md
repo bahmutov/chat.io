@@ -1,5 +1,7 @@
 # chat.io [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-9.1.1-brightgreen) ![cypress-data-session version](https://img.shields.io/badge/cypress--data--session-1.14.2-brightgreen)
+
 [![ci status][ci image]][ci url] [![CircleCI](https://circleci.com/gh/bahmutov/chat.io/tree/main.svg?style=svg)](https://circleci.com/gh/bahmutov/chat.io/tree/main) [![chat.io](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/f1j79r/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/f1j79r/runs)
+
 > Cypress.io testing for a chat application that requires auth
 
 ## Videos
@@ -116,6 +118,34 @@ The Cypress tests automatically re-run when the spec files change. They also re-
 ## History
 
 All props for this Chat app goes to the original repo [OmarElGabry/chat.io](https://github.com/OmarElGabry/chat.io). I have only cloned to show it being tested, added more features, added Cypress tests
+
+## HTTPS
+
+To create a local self-signed certificate on Mac I used the following commands (see [Cypress Hosts Option](https://glebbahmutov.com/blog/cypress-hosts-option/) and [bahmutov/cypress-local-https](https://github.com/bahmutov/cypress-local-https))
+
+```
+$ brew install mkcert
+$ mkcert -install
+$ mkdir .cert
+$ mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem "my-chat.io"
+```
+
+To start the server with HTTPS, use
+
+```
+$ HTTPS=true ... start command ...
+```
+
+In this case, the base URL should point at `https://my-chat.io` with additional "hosts" mapping this custom domain back to `127.0.0.1`
+
+```json
+{
+  "baseUrl": "https://my-chat.io:3000/",
+  "hosts": {
+    "my-chat.io": "127.0.0.1"
+  }
+}
+```
 
 ## Continuous Integration
 
