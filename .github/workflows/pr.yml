@@ -39,10 +39,12 @@ jobs:
       # run utility services in the background
       # using docker-compose (see docker-compose.yml file)
       - name: Run docker-compose 🐳
+        if: ${{ steps.list-changed-specs.outputs.specsN > 0 && steps.list-changed-specs.outputs.specsN < 5 }}
         run: docker-compose up -d
 
       # install dependencies
       - name: Install dependencies 📦
+        if: ${{ steps.list-changed-specs.outputs.specsN > 0 && steps.list-changed-specs.outputs.specsN < 5 }}
         uses: cypress-io/github-action@v2
         with:
           build: npm run stop-only
@@ -50,6 +52,7 @@ jobs:
           runTests: false
 
       - name: Start the app 🏁
+        if: ${{ steps.list-changed-specs.outputs.specsN > 0 && steps.list-changed-specs.outputs.specsN < 5 }}
         run: npm start &
         env:
           # for connecting to the Mongo and Redis services
