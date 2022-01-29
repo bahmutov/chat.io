@@ -74,6 +74,10 @@ MONGODB=mongodb://root:rootPass1234@localhost:27017/
 $ as-a chat.io npm start
 ```
 
+Open the [http://localhost:3000](http://localhost:3000) in your browser.
+
+![Chat between two users](./images/chat.png)
+
 ## Run the tests
 
 Because Cypress connects to the same MongoDB to clear the data in some tests, need to start it with the same environment variable
