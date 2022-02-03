@@ -21,6 +21,7 @@
 - [Nodemon And cypress-watch-and-reload Utilities](https://youtu.be/fy4qYGK690Q)
 - [Quickly Create A User And Log in Using Dependent Data Sessions](https://www.youtube.com/watch?v=0KTGc83wSoA)
 - [Run Cypress On CircleCI From Your Terminal](https://youtu.be/fBcoMmNBY5w) using [run-cy-on-ci](https://github.com/bahmutov/run-cy-on-ci) utility
+- [Stay Logged In During Tests By Preserving A Cookie](https://youtu.be/tXqX2SQurMc)
 - TODO: using `cy.task` to create a new room
 - TODO: using spec events to clear the rooms and the users
 
