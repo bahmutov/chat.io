@@ -36,7 +36,7 @@ app.use(flash())
 if (process.env.HTTPS === 'true') {
   const red = express()
   red.use('*', (req, res, next) => {
-    console.log('%s %s', req.protocol, req.originalUrl)
+    console.log('%s %s %s', req.method, req.protocol, req.originalUrl)
     if (req.protocol !== 'https') {
       return res.redirect('https://localhost:' + port + req.originalUrl)
     }
@@ -45,7 +45,7 @@ if (process.env.HTTPS === 'true') {
 
   const redServer = http.createServer(red)
   redServer.listen(port + 1, () => {
-    console.log('redirect port', port + 1)
+    console.log('HTTPS port %d', port + 1)
   })
 }
 
