@@ -51,6 +51,29 @@ function loginUser(username, password) {
     })
 }
 
+// will only pass on the first try
+// because the user name is taken
+it.skip('registers user in the test', () => {
+  const username = 'Test'
+  const password = 'MySecreT'
+
+  registerUser(username, password)
+  loginUser(username, password)
+
+  // if the user has been created and could log in
+  // we should be redirected to the home page with the rooms
+  cy.location('pathname').should('equal', '/rooms')
+})
+
+it('creates a random user', () => {
+  const username = 'Gleb-' + Cypress._.random(1e3)
+  const password = '¡SoSecret!'
+  registerUser(username, password)
+  loginUser(username, password)
+  cy.location('pathname').should('equal', '/rooms')
+  cy.contains('.user-info', username)
+})
+
 it('registers user 1', () => {
   const username = 'Test'
   const password = 'MySecreT'

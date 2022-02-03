@@ -1,4 +1,4 @@
-# chat.io [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-9.1.1-brightgreen) ![cypress-data-session version](https://img.shields.io/badge/cypress--data--session-1.14.2-brightgreen)
+# chat.io [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-9.1.1-brightgreen) ![cypress-data-session version](https://img.shields.io/badge/cypress--data--session-2.0.0-brightgreen)
 
 [![ci status][ci image]][ci url] [![CircleCI](https://circleci.com/gh/bahmutov/chat.io/tree/main.svg?style=svg)](https://circleci.com/gh/bahmutov/chat.io/tree/main) [![chat.io](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/f1j79r/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/f1j79r/runs)
 
@@ -73,6 +73,10 @@ MONGODB=mongodb://root:rootPass1234@localhost:27017/
 ```shell
 $ as-a chat.io npm start
 ```
+
+Open the [http://localhost:3000](http://localhost:3000) in your browser.
+
+![Chat between two users](./images/chat.png)
 
 ## Run the tests
 

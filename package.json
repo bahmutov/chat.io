@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "cypress": "9.1.1",
-    "cypress-data-session": "1.14.2",
+    "cypress-data-session": "2.0.0",
     "cypress-grep": "2.12.0",
     "cypress-watch-and-reload": "1.5.5",
     "nodemon": "^2.0.12",
