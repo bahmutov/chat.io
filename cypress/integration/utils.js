@@ -53,6 +53,26 @@ export const registerViaApi = (name, pass) => {
   return loginViaApi({ username, password })
 }
 
+export function loginUser(username, password) {
+  // make sure no one is logged in
+  cy.clearCookie('connect.sid')
+  cy.visit('/')
+
+  cy.get('.login-form')
+    .should('be.visible')
+    .within(() => {
+      cy.get('[placeholder=username]')
+        .type(username)
+        .should('have.value', username)
+      cy.get('[placeholder=password]').type(password)
+
+      cy.contains('button', 'login')
+        .click()
+        // the app disables the button while submitting the form
+        .should('be.disabled')
+    })
+}
+
 export const loginViaApi = ({ username, password }) => {
   cy.log(`log in user **${username}**`)
   expect(username, 'username').to.be.a('string')

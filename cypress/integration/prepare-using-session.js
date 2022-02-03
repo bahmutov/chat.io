@@ -3,7 +3,8 @@
 import { registerViaApi } from './utils'
 
 // compare this spec to the "prepare-rooms.js" file
-describe('prepare using cy.session', () => {
+// SKIP requires cy.session flag
+describe.skip('prepare using cy.session', () => {
   beforeEach(() => {
     function setupTwoRooms() {
       // slow down each command to simulate an expensive setup

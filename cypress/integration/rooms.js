@@ -4,7 +4,8 @@ import { registerUser } from './utils'
 
 const { random } = Cypress._
 
-describe('creating rooms', () => {
+// SKIP requires cy.session flag
+describe.skip('creating rooms', () => {
   beforeEach(() => {
     cy.task('clearRooms')
     cy.session('logged in', registerUser)

@@ -2,7 +2,8 @@
 
 import { registerUser } from './utils'
 
-describe('different users', () => {
+// SKIP requires cy.session flag
+describe.skip('different users', () => {
   it('can log in instantly', () => {
     // we are using cy.session command
     // https://on.cypress.io/session

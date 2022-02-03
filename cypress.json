@@ -4,7 +4,7 @@
   "hosts": {
     "my-chat.io": "127.0.0.1"
   },
-  "experimentalSessionSupport": true,
+  "experimentalSessionSupport": false,
   "ignoreTestFiles": ["utils.js", "README.md"],
   "projectId": "f1j79r",
   "cypress-watch-and-reload": {

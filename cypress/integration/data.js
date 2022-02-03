@@ -3,7 +3,8 @@
 import { loginViaApi, registerViaApi } from './utils'
 
 // prepares the room using https://github.com/bahmutov/cypress-data-session
-describe('prepare rooms', () => {
+// SKIP requires cy.session flag
+describe.skip('prepare rooms', () => {
   beforeEach(() => {
     function setupTwoRooms() {
       const roomIds = []

@@ -24,7 +24,8 @@ it('logs out', () => {
 // preventing its reuse in the next run
 // But we can still use the session to confirm
 // the "log out" link is visible
-it('sees the log out link', () => {
+// SKIP requires cy.session flag
+it.skip('sees the log out link', () => {
   cy.session('logged in', registerUser)
 
   // confirms we have the session cookie set
