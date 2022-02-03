@@ -15,6 +15,10 @@ describe('log in once', () => {
     loginUser(username, password)
   })
 
+  // beforeEach(() => {
+  //   Cypress.Cookies.preserveOnce('connect.sid')
+  // })
+
   it('is logged in (1st test)', function () {
     cy.getCookie('connect.sid').then(JSON.stringify).then(cy.log)
 
