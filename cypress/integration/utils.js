@@ -14,7 +14,9 @@ export const registerOnly = (username, password) => {
       // detect the form update by waiting for the new document
       cy.document().then((doc) => {
         cy.contains('button', 'create').click()
-        cy.document().should((d) => assert(d !== doc, 'document has changed'))
+        cy.document().should((d) =>
+          assert(d !== doc, 'document has changed'),
+        )
       })
     })
 }
@@ -82,6 +84,7 @@ export const loginViaApi = ({ username, password }) => {
   cy.request('/')
   // let's check the session cookie was set
   cy.getCookie('connect.sid').should('exist')
+
   cy.request({
     method: 'POST',
     url: '/login',
