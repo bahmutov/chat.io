@@ -155,9 +155,8 @@ workflows:
           no-workspace: true
           command: |
             # be careful about counting the lines
-            specsLines=$(git diff --name-only --diff-filter=AMR origin/main | { grep cypress/integration || true; })
-            n=$(echo $specsLines | sed '/^\s*$/d' | wc -l | tr -d ' ')
-            specs=$(echo $specsLines | sed '/^\s*$/d' | tr '\n' ',')
+            specs=$(npx find-cypress-specs --branch main)
+            n=$(npx find-cypress-specs --branch main --count)
             echo ""
             echo "Changed and added ${n} Cypress specs"
             echo ${specs}
