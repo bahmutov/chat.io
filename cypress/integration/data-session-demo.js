@@ -26,7 +26,9 @@ function registerUser(username, password) {
       cy.contains('button', 'create').click().should('be.disabled')
     })
   // if everything goes well
-  cy.contains('.success', 'Your account has been created').should('be.visible')
+  cy.contains('.success', 'Your account has been created').should(
+    'be.visible',
+  )
 }
 
 /**
@@ -222,59 +224,62 @@ it.skip('validates the user', () => {
     },
     dependsOn: ['user'],
   })
-
   // check if the user is logged in successfully
   cy.location('pathname').should('equal', '/rooms')
 })
 
-it('validates the user and the session cookie', { tags: '@demo' }, () => {
-  const username = 'Test'
-  const password = 'MySecreT'
+it(
+  'validates the user and the session cookie',
+  { tags: '@demo' },
+  () => {
+    const username = 'Test'
+    const password = 'MySecreT'
 
-  cy.dataSession({
-    name: 'user',
-    init() {
-      cy.task('findUser', username)
-    },
-    setup() {
-      registerUser(username, password)
-      cy.task('findUser', username)
-    },
-    validate(user) {
-      cy.task('findUser', user.username).then(
-        (found) => found && found._id === user._id,
-      )
-    },
-  })
-  cy.dataSession({
-    name: 'logged in',
-    setup() {
-      loginUser(username, password)
-      cy.getCookie('connect.sid')
-    },
-    validate(cookie) {
-      // try making a request with the cookie value
-      // to a protected route. If it is successful
-      // we are good to go. If we get a redirect
-      // to login instead, we know the cookie is invalid
-      cy.request({
-        url: '/rooms',
-        failOnStatusCode: false,
-        followRedirect: false,
-        headers: {
-          cookie: `connect.sid=${cookie.value}`,
-        },
-      })
-        .its('status')
-        .then((status) => status === 200)
-    },
-    recreate(cookie) {
-      cy.setCookie('connect.sid', cookie.value)
-      cy.visit('/rooms')
-    },
-    dependsOn: ['user'],
-  })
+    cy.dataSession({
+      name: 'user',
+      init() {
+        cy.task('findUser', username)
+      },
+      setup() {
+        registerUser(username, password)
+        cy.task('findUser', username)
+      },
+      validate(user) {
+        cy.task('findUser', user.username).then(
+          (found) => found && found._id === user._id,
+        )
+      },
+    })
+    cy.dataSession({
+      name: 'logged in',
+      setup() {
+        loginUser(username, password)
+        cy.getCookie('connect.sid')
+      },
+      validate(cookie) {
+        // try making a request with the cookie value
+        // to a protected route. If it is successful
+        // we are good to go. If we get a redirect
+        // to login instead, we know the cookie is invalid
+        cy.request({
+          url: '/rooms',
+          failOnStatusCode: false,
+          followRedirect: false,
+          headers: {
+            cookie: `connect.sid=${cookie.value}`,
+          },
+        })
+          .its('status')
+          .then((status) => status === 200)
+      },
+      recreate(cookie) {
+        cy.setCookie('connect.sid', cookie.value)
+        cy.visit('/rooms')
+      },
+      dependsOn: ['user'],
+    })
 
-  // check if the user is logged in successfully
-  cy.location('pathname').should('equal', '/rooms')
-})
+    // check if the user is logged in successfully
+    cy.location('pathname').should('equal', '/rooms')
+  },
+)
