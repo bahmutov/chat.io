@@ -104,6 +104,15 @@ async function getUsers() {
 }
 
 module.exports = (on, config) => {
+  // https://github.com/bahmutov/cypress-email-results
+  // only configure the email plugin if the environment variable is set
+  if (process.env.EMAIL_TO) {
+    require('cypress-email-results')(on, config, {
+      email: process.env.EMAIL_TO,
+      emailOnSuccess: false,
+    })
+  }
+
   // https://github.com/bahmutov/cypress-watch-and-reload
   require('cypress-watch-and-reload/plugins')(config)
 
