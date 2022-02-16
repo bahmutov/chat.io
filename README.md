@@ -32,6 +32,7 @@
 - [Flexible Cypress Data Setup And Validation](https://glebbahmutov.com/blog/cypresss-data-session/)
 - [Dealing With 3rd Party Scripts In Cypress Tests](https://glebbahmutov.com/blog/3rd-party/)
 - [Faster User Object Creation](https://glebbahmutov.com/blog/faster-user-creation/)
+- [Email Cypress Test Report](https://glebbahmutov.com/blog/email-cypress-report/)
 
 ## Installation
 
