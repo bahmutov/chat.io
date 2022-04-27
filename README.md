@@ -34,6 +34,10 @@
 - [Faster User Object Creation](https://glebbahmutov.com/blog/faster-user-creation/)
 - [Email Cypress Test Report](https://glebbahmutov.com/blog/email-cypress-report/)
 
+## Presentations
+
+- [End-to-End Testing for a Real-time Chat Web Application](https://slides.com/bahmutov/e2e-for-chat)
+
 ## Installation
 
 ```shell
