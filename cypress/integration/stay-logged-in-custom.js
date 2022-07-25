@@ -3,37 +3,46 @@
 
 import { loginUser } from './utils'
 
-// watch the video "Stay Logged In During Tests By Preserving A Cookie"
-// https://youtu.be/tXqX2SQurMc
+function keepCookie(name) {
+  cy.getCookie(name).then((cookie) => {
+    const cookieKey = 'cookie_' + name
 
-Cypress.on('test:before:run:async', () => {
-  console.log('test:before:run:async')
-})
+    if (cookie === null) {
+      const keptCookie = Cypress.env(cookieKey)
+      if (keptCookie) {
+        // console.log({ name, cookieKey, keptCookie })
+        cy.setCookie(name, keptCookie)
+      }
+    } else {
+      // store the latest cookie value
+      Cypress.env(cookieKey, cookie.value)
+    }
+  })
+}
 
-describe('log in once', () => {
+describe('log in once using custom preserve cookie', () => {
   // create this user yourself before running this spec
   const username = 'Gleb-764'
   const password = '¡SoSecret!'
 
-  // alternative to "beforeEach" with preserveOnce
-  // Cypress.Cookies.defaults({
-  //   preserve: 'connect.sid',
-  // })
-
   before(() => {
-    console.log('before')
     loginUser(username, password)
   })
 
   beforeEach(() => {
-    console.log('beforeEach')
-    cy.getCookie('connect.sid').then(console.log)
-    Cypress.Cookies.preserveOnce('connect.sid')
+    // does nothing for cookies that don't exist
+    keepCookie('nope')
+    // replace the deprecated
+    // Cypress.Cookies.preserveOnce('connect.sid')
+    // with our custom code
+    keepCookie('connect.sid')
+  })
+
+  beforeEach(() => {
     console.log('beforeEach done')
   })
 
-  it.only('is logged in (1st test)', function () {
-    console.log('first test')
+  it('is logged in (1st test)', function () {
     cy.visit('/')
     cy.location('pathname').should('equal', '/rooms')
     cy.contains('.user-info', username)

@@ -68,11 +68,10 @@ export function loginUser(username, password) {
         .should('have.value', username)
       cy.get('[placeholder=password]').type(password)
 
-      cy.contains('button', 'login')
-        .click()
-        // the app disables the button while submitting the form
-        .should('be.disabled')
+      cy.contains('button', 'login').click()
     })
+
+  cy.location('pathname').should('equal', '/rooms')
 }
 
 export const loginViaApi = ({ username, password }) => {
