@@ -43,7 +43,7 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "cypress": "9.7.0",
+    "cypress": "10.8.0",
     "cypress-data-session": "2.0.0",
     "cypress-email-results": "^1.8.0",
     "cypress-grep": "2.12.0",
