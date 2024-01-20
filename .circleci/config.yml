@@ -4,7 +4,7 @@
 version: 2.1
 orbs:
   # https://github.com/cypress-io/circleci-orb
-  cypress: cypress-io/cypress@1.29.0
+  cypress: cypress-io/cypress@3.3.0
 
 # if we want to run only some tests on CircleCI, we can call the workflow
 # with parameters, as described in https://glebbahmutov.com/blog/burn-tests-on-circle/
