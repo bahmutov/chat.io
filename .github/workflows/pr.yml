@@ -46,7 +46,7 @@ jobs:
       # install dependencies
       - name: Install dependencies 📦
         if: ${{ steps.list-changed-specs.outputs.specsN > 0 && steps.list-changed-specs.outputs.specsN < 5 }}
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v7.4.0
         with:
           build: npm run stop-only
           # just perform install
@@ -66,7 +66,7 @@ jobs:
         # it makes sense to run changed specs only if there are a few
         # otherwise just run all specs in the next step
         if: ${{ steps.list-changed-specs.outputs.specsN > 0 && steps.list-changed-specs.outputs.specsN < 5 }}
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v7.4.0
         with:
           # we have already installed all dependencies above
           install: false
@@ -95,7 +95,7 @@ jobs:
 
       # https://github.com/cypress-io/github-action
       - name: Cypress tests 🧪
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v7.4.0
         with:
           build: npm run stop-only
           start: npm start
@@ -126,7 +126,7 @@ jobs:
 
       # https://github.com/cypress-io/github-action
       - name: Cypress tests 🧪
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v7.4.0
         with:
           build: npm run stop-only
           start: npm start
