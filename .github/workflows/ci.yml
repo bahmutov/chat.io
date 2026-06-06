@@ -18,7 +18,7 @@ jobs:
 
       # https://github.com/cypress-io/github-action
       - name: Cypress tests 🧪
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v7.4.0
         with:
           build: npm run stop-only
           start: npm start
@@ -56,7 +56,7 @@ jobs:
 
       # https://github.com/cypress-io/github-action
       - name: Cypress tests 🧪
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v7.4.0
         with:
           build: npm run stop-only
           start: npm start
